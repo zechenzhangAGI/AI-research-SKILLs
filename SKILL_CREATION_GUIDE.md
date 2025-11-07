@@ -1,403 +1,586 @@
-# High-Quality Skill Creation Guide
+# Skill Creation Guide
 
+**Based on**: [Anthropic Official Best Practices](anthropic_official_docs/best_practices.md)
 **Last Updated**: November 6, 2025
-**Status**: Required reading for all skill creators
 
 ---
 
-## 🎯 The Problem We Solved
+## Core Principles (from Anthropic)
 
-### What Went Wrong (November 2025)
+### 1. Concise is Key
 
-We initially created 16 skills using automated scraping:
-- ❌ **9 GitHub-scraped skills** (54-68 lines each) - DELETED for being useless
-  - Just linked to README/CHANGELOG/GitHub issues
-  - No actual guidance or workflows
-  - Not helpful for AI agents or humans
-  - **Total waste**
+**The context window is a public good.** Your skill shares it with system prompts, conversation history, and other skills.
 
-- ⚠️ **5 Doc-scraped skills** (70-151 lines) - KEPT but need improvement
-  - Better than GitHub scrapes, but still basic
-  - Some real content, but lacking depth
+**Default assumption: Claude is already smart**
 
-- ✅ **1 Hand-crafted skill** (569 lines) - GOLD STANDARD
-  - GRPO-RL-Training: Complete implementation guide
-  - Step-by-step workflows with code
-  - Troubleshooting, pitfalls, performance tips
-  - **This is what ALL skills should be**
+Only add context Claude doesn't already have. Challenge each piece of information:
+- "Does Claude really need this explanation?"
+- "Can I assume Claude knows this?"
+- "Does this paragraph justify its token cost?"
 
-### Lessons Learned
-
-1. **Automated scraping doesn't work** for creating useful skills
-2. **GitHub README + Issues ≠ Skill** (it's just documentation links)
-3. **Quality > Quantity**: 1 great skill > 10 mediocre ones
-4. **Skills need expert curation**, not automation
-
----
-
-## ✅ The New Approach
-
-### Phase 1: Research & Analysis (Human + AI)
-
-**Goal**: Deeply understand the tool/framework before writing
-
-1. **Read official documentation thoroughly**
-   - Not just scraping - actually reading and understanding
-   - Focus on: tutorials, quickstart, common patterns
-   - Identify what users struggle with (check issues, forums, Stack Overflow)
-
-2. **Analyze real-world usage**
-   - Look for blog posts, tutorials, video guides
-   - Check GitHub issues for common problems
-   - Find production codebases using the tool
-
-3. **Identify key concepts**
-   - What's the core value proposition?
-   - When should you use it vs alternatives?
-   - What are the common gotchas?
-
-**Output**: Research notes (50-100 lines) covering:
-- Core concepts
-- Common use cases
-- Known pitfalls
-- Best practices from community
-
-### Phase 2: Structure Planning
-
-**Goal**: Outline the skill before writing
-
-Create an outline with:
-1. **When to Use This Skill** (10-20 lines)
-   - Specific use cases
-   - When NOT to use (equally important)
-
-2. **Core Concepts** (30-50 lines)
-   - 3-5 key ideas users must understand
-   - Brief explanations with examples
-
-3. **Implementation Workflow** (100-200 lines)
-   - Step-by-step guide with code
-   - At least 3-5 complete examples
-   - Cover beginner → intermediate → advanced
-
-4. **Troubleshooting** (30-50 lines)
-   - 5-10 common issues with solutions
-   - Based on real GitHub issues / Stack Overflow
-
-5. **Best Practices** (20-40 lines)
-   - Production tips
-   - Performance optimization
-   - Common pitfalls
-
-**Target**: 300-600 lines total (like GRPO skill)
-
-### Phase 3: Writing with Claude
-
-**Recommended Process**:
-
+**Good** (50 tokens):
 ```markdown
-# Step 1: Provide Research to Claude
-"I want to create a skill for [Tool]. Here's my research:
+## Extract PDF text
 
-[Paste research notes]
+Use pdfplumber for text extraction:
 
-Please help me create a comprehensive SKILL.md following the structure in SKILL_TEMPLATE.md"
-
-# Step 2: Iterate on Structure
-"The core concepts section needs more depth. Add examples for [concept]"
-
-# Step 3: Add Code Examples
-"Add a complete working example for [use case] with step-by-step comments"
-
-# Step 4: Add Troubleshooting
-"Based on these GitHub issues [links], create troubleshooting entries"
-
-# Step 5: Review and Refine
-"Review the full skill. Where can we add more practical guidance?"
+```python
+import pdfplumber
+with pdfplumber.open("file.pdf") as pdf:
+    text = pdf.pages[0].extract_text()
+```
 ```
 
-### Phase 4: Quality Validation
-
-**Checklist before submitting**:
-- [ ] SKILL.md is 100+ lines (ideally 300+)
-- [ ] Has 5+ complete code examples with comments
-- [ ] Includes "When to use" AND "When NOT to use"
-- [ ] Has troubleshooting section (5+ issues)
-- [ ] Includes performance tips / best practices
-- [ ] Code examples are tested (if possible)
-- [ ] No "see the docs" cop-outs
-- [ ] Actually useful to someone implementing the tool
-
----
-
-## 🎓 Skill Quality Tiers
-
-### ⭐⭐⭐⭐⭐ Gold Standard (Target)
-**Example**: `06-post-training/grpo-rl-training/` (569 lines)
-
-- 300-600 lines of expert guidance
-- 10+ code examples with detailed explanations
-- Complete implementation workflow (setup → config → train → debug → deploy)
-- Troubleshooting guide with solutions
-- Performance optimization tips
-- Common pitfalls with workarounds
-- Best practices checklist
-- References to official docs (not just links)
-
-### ⭐⭐⭐⭐ Excellent (Acceptable)
-**Example**: `03-fine-tuning/axolotl/` (151 lines)
-
-- 150-300 lines of useful content
-- 5+ code examples
-- Step-by-step workflow
-- Some troubleshooting
-- Best practices section
-- When to use guidance
-
-### ⭐⭐⭐ Good (Needs Improvement)
-**Example**: `08-distributed-training/deepspeed/` (132 lines)
-
-- 100-150 lines
-- 3-5 code examples
-- Basic workflow
-- Limited troubleshooting
-- Some best practices
-- **Should be upgraded to Excellent**
-
-### ⭐⭐ Poor (Not Acceptable)
-**Example**: Old GitHub-scraped skills (54-68 lines) - DELETED
-
-- 50-100 lines
-- Generic template
-- Few real examples
-- No troubleshooting
-- Just links to docs
-- **Will be rejected**
-
-### ⭐ Terrible (Immediate Rejection)
-- Under 50 lines
-- No code examples
-- "See the docs"
-- Copy-pasted README
-
----
-
-## 🛠️ Tools and Resources
-
-### For Research
-
-**Official Documentation**:
-- Primary source for concepts and APIs
-- Focus on tutorials, not just API reference
-
-**GitHub Issues**:
-- Filter by label: "bug", "help wanted", "question"
-- Look for frequently asked questions
-- Identify common pain points
-
-**Stack Overflow**:
-- Search for `[tool-name]` questions
-- Sort by votes to find common issues
-- Note recurring themes
-
-**Community Resources**:
-- Blog posts, tutorials, YouTube videos
-- Production codebases on GitHub
-- Discord/Slack discussions (if accessible)
-
-### For Writing
-
-**Claude Code** (this tool):
-- Use for drafting skill content
-- Iterate on structure and examples
-- Review and refine
-
-**Skill Seeker MCP** (if useful):
-- Can fetch documentation for analysis
-- NOT for auto-generating skills
-- Use as research aid only
-
-### For Validation
-
-**Manual Review**:
-- Read the skill as a first-time user
-- Would this help you implement the tool?
-- Are examples complete and runnable?
-
-**Peer Review**:
-- Have another developer review
-- Ask: "Is this useful? What's missing?"
-
----
-
-## 📋 Skill Creation Checklist
-
-### Before Starting
-- [ ] Read official documentation (minimum 1 hour)
-- [ ] Analyze 10+ GitHub issues for common problems
-- [ ] Find 3-5 real-world usage examples
-- [ ] Create research notes document
-
-### During Creation
-- [ ] Follow SKILL_TEMPLATE.md structure
-- [ ] Write 300+ lines of content
-- [ ] Include 5+ complete code examples
-- [ ] Add troubleshooting section (5+ issues)
-- [ ] Include performance tips
-- [ ] Add "when NOT to use" guidance
-
-### Before Submitting
-- [ ] Validate all code examples work
-- [ ] Check for typos and formatting
-- [ ] Ensure 300+ lines of useful content
-- [ ] Compare to GRPO skill quality
-- [ ] Remove any "see the docs" cop-outs
-- [ ] Test SKILL.md readability
-
----
-
-## 🚫 Anti-Patterns to Avoid
-
-### ❌ The README Linker
+**Bad** (150 tokens):
 ```markdown
-## Usage
+## Extract PDF text
 
-See README.md for complete usage instructions.
-```
-**Why it's bad**: Not a skill, just a pointer. WRITE THE ACTUAL GUIDANCE.
-
-### ❌ The Issue Dumper
-```markdown
-## Known Issues
-
-- Issue #123: Build fails on MacOS
-- Issue #456: OOM error with large datasets
-- Issue #789: Incompatible with Python 3.12
-```
-**Why it's bad**: No context, no solutions. EXPLAIN THE PROBLEM AND HOW TO FIX IT.
-
-### ❌ The API Listing
-```markdown
-## Functions
-
-- `model.train()` - Trains the model
-- `model.eval()` - Evaluates the model
-- `model.save()` - Saves the model
-```
-**Why it's bad**: Just lists APIs. SHOW HOW TO USE THEM IN REAL WORKFLOWS.
-
-### ❌ The Documentation Scraper
-```markdown
-Copied from official docs:
-[5000 lines of scraped content]
-```
-**Why it's bad**: Not curated, not organized. SYNTHESIZE AND ADD VALUE.
-
----
-
-## ✅ Good Patterns to Follow
-
-### ✅ The Problem Solver
-```markdown
-## Common Issue: OOM During Training
-
-**Problem**: Training crashes with "CUDA out of memory" error.
-
-**Root Cause**: Batch size too large or model doesn't fit in GPU.
-
-**Solution**:
-1. Reduce batch size:
-   `training_args.per_device_train_batch_size = 1`
-2. Enable gradient checkpointing:
-   `model.gradient_checkpointing_enable()`
-3. Use gradient accumulation:
-   `training_args.gradient_accumulation_steps = 4`
-
-**Example**:
-\`\`\`python
-from transformers import TrainingArguments
-
-args = TrainingArguments(
-    per_device_train_batch_size=1,
-    gradient_accumulation_steps=4,  # Effective batch = 4
-    fp16=True,  # Use mixed precision
-)
-\`\`\`
+PDF (Portable Document Format) files are a common file format that contains
+text, images, and other content. To extract text from a PDF, you'll need to
+use a library. There are many libraries available for PDF processing, but we
+recommend pdfplumber because it's easy to use and handles most cases well.
+First, you'll need to install it using pip. Then you can use the code below...
 ```
 
-### ✅ The Workflow Guide
-```markdown
-## Step 1: Dataset Preparation
+### 2. Progressive Disclosure
 
-Prepare your data in the correct format:
+**SKILL.md serves as an overview** that points Claude to detailed materials as needed.
 
-\`\`\`python
-from datasets import Dataset
+- Keep SKILL.md body **under 500 lines** for optimal performance
+- Aim for **200-300 lines** in practice
+- Split content into separate reference files
+- Keep references **ONE LEVEL DEEP** from SKILL.md (no nested references)
 
-# Raw data
-data = [
-    {"text": "Example 1", "label": 0},
-    {"text": "Example 2", "label": 1}
-]
-
-# Convert to Dataset
-dataset = Dataset.from_list(data)
-
-# Split into train/test
-dataset = dataset.train_test_split(test_size=0.2)
-\`\`\`
-
-**Pro Tip**: Always validate your data before training:
-\`\`\`python
-print(dataset['train'][0])  # Check first example
-assert all(len(x['text']) > 0 for x in dataset['train'])  # Validate
-\`\`\`
+**Structure**:
+```
+skill-name/
+├── SKILL.md              # Main overview (200-300 lines)
+├── server-deployment.md  # Specific topic (loaded as needed)
+├── offline-inference.md  # Another topic (loaded as needed)
+├── optimization.md       # Advanced topic (loaded as needed)
+└── scripts/
+    ├── validate.py       # Utility script (executed, not loaded)
+    └── helper.py         # Another script
 ```
 
-### ✅ The Comparison Guide
+### 3. Use Workflows with Checklists
+
+For multi-step tasks, provide copy-paste checklists:
+
 ```markdown
-## When to Use This vs Alternatives
+## Deployment workflow
 
-**Use [Tool] when**:
-- You need [specific capability]
-- Your dataset is [size/format]
-- You have [resource constraints]
+Copy this checklist and track progress:
 
-**Use [Alternative] instead when**:
-- You need [different capability]
-- You have [different constraints]
+```
+Task Progress:
+- [ ] Step 1: Configure server settings
+- [ ] Step 2: Validate configuration
+- [ ] Step 3: Deploy to production
+- [ ] Step 4: Verify deployment
+```
 
-**Example**: For fine-tuning Llama 3:
-- **Axolotl**: Best for YAML-based config, multi-GPU setups
-- **Unsloth**: Best for single GPU, QLoRA, speed optimization
-- **TRL**: Best for RLHF, custom reward functions
+**Step 1: Configure server settings**
+
+Edit `config.yaml` with production values.
+
+**Step 2: Validate configuration**
+
+Run validator and fix errors:
+```bash
+python validate.py config.yaml
+# If errors: fix → validate again → continue
+```
+
+**Step 3: Deploy to production**
+
+[Specific deployment command]
+
+**Step 4: Verify deployment**
+
+[Verification steps]
+```
+
+### 4. Feedback Loops for Quality
+
+**Common pattern**: Run validator → fix errors → repeat
+
+```markdown
+## Document editing process
+
+1. Make your edits to `document.xml`
+2. **Validate immediately**: `python validate.py document.xml`
+3. If validation fails:
+   - Review the error message carefully
+   - Fix the issues
+   - Run validation again
+4. **Only proceed when validation passes**
+5. Export final document
 ```
 
 ---
 
-## 📈 Success Metrics
+## YAML Frontmatter Requirements
 
-**A high-quality skill should enable someone to**:
-1. ✅ Understand when to use the tool (5 minutes)
-2. ✅ Set up and run their first example (15 minutes)
-3. ✅ Implement a real use case (30-60 minutes)
-4. ✅ Troubleshoot common issues (without Googling)
-5. ✅ Follow best practices (avoid common pitfalls)
+```yaml
+---
+name: "skill-name-here"
+description: "Third-person description of what this does and when to use it. Include key terms and triggers. Maximum 1024 characters."
+---
+```
 
-**If your skill can't do this, it's not ready.**
+**name** field:
+- Maximum 64 characters
+- Lowercase letters, numbers, hyphens only
+- No XML tags
+- No reserved words: "anthropic", "claude"
+- **Recommended**: Use gerund form (e.g., `serving-llms`, `processing-pdfs`, `analyzing-data`)
+
+**description** field:
+- Maximum 1024 characters
+- Non-empty
+- No XML tags
+- **MUST be third person**: "Processes files..." not "I can help you..."
+- Include **what** it does AND **when** to use it
+- Include key terms for discovery
+
+**Examples**:
+
+✅ **Good**:
+```yaml
+description: "Serves LLMs with high throughput using vLLM's PagedAttention and continuous batching. Use when deploying production LLM APIs, optimizing inference latency, or serving models with limited GPU memory."
+```
+
+✅ **Good**:
+```yaml
+description: "Extracts text and tables from PDF files, fills forms, merges documents. Use when working with PDF files or when the user mentions PDFs, forms, or document extraction."
+```
+
+❌ **Bad** (first person):
+```yaml
+description: "I can help you process PDF files and extract text"
+```
+
+❌ **Bad** (too vague):
+```yaml
+description: "Helps with documents"
+```
 
 ---
 
-## 🎯 Next Steps
+## Skill Structure Best Practices
 
-1. **Read this guide thoroughly**
-2. **Study the GRPO skill** (`06-post-training/grpo-rl-training/SKILL.md`)
-3. **Choose a tool to document** (see PROJECT_ANALYSIS.md for priorities)
-4. **Do 1-2 hours of research** before writing
-5. **Write iteratively with Claude**
-6. **Validate quality** (300+ lines, 5+ examples, troubleshooting)
-7. **Submit for review**
+### File Organization
+
+**Simple skill** (just SKILL.md):
+```
+skill-name/
+└── SKILL.md
+```
+
+**Complex skill** (with references):
+```
+skill-name/
+├── SKILL.md                  # Overview, points to references
+├── server-deployment.md      # Topic-specific guide
+├── offline-inference.md      # Another topic
+├── optimization.md           # Advanced features
+├── troubleshooting.md        # Common issues
+└── scripts/
+    ├── validate.py           # Utility script
+    └── setup.sh              # Setup script
+```
+
+**Domain-specific organization** (for Skills with multiple domains):
+```
+bigquery-skill/
+├── SKILL.md                  # Overview and navigation
+└── reference/
+    ├── finance.md            # Revenue, billing metrics
+    ├── sales.md              # Opportunities, pipeline
+    ├── product.md            # API usage, features
+    └── marketing.md          # Campaigns, attribution
+```
+
+### Reference Files
+
+**One level deep**: All reference files should link directly from SKILL.md
+
+✅ **Good**:
+```markdown
+# SKILL.md
+
+**Server deployment**: See [server-deployment.md](server-deployment.md)
+**Offline inference**: See [offline-inference.md](offline-inference.md)
+**API reference**: See [api-reference.md](api-reference.md)
+```
+
+❌ **Bad** (nested references):
+```markdown
+# SKILL.md
+See [advanced.md](advanced.md)...
+
+# advanced.md
+See [details.md](details.md)...
+
+# details.md
+Here's the actual information...
+```
+
+**Table of contents**: For reference files >100 lines, include table of contents at top
+
+```markdown
+# API Reference
+
+## Contents
+- Authentication and setup
+- Core methods (create, read, update, delete)
+- Advanced features (batch operations, webhooks)
+- Error handling patterns
+- Code examples
+
+## Authentication and setup
+...
+```
 
 ---
 
-**Remember**: One excellent skill is worth more than ten mediocre ones. Take the time to do it right.
+## Content Guidelines
+
+### Assume Claude is Smart
+
+Don't explain basics. Assume Claude knows:
+- What PDFs are
+- How libraries work
+- What APIs are
+- Common programming concepts
+- Standard ML/AI terminology
+
+Only explain:
+- Domain-specific concepts unique to this tool
+- Non-obvious gotchas
+- Best practices from community experience
+
+### Consistent Terminology
+
+Choose one term and use it throughout:
+
+✅ **Good**:
+- Always "API endpoint"
+- Always "field"
+- Always "extract"
+
+❌ **Bad**:
+- Mix "API endpoint", "URL", "API route", "path"
+- Mix "field", "box", "element", "control"
+- Mix "extract", "pull", "get", "retrieve"
+
+### Avoid Time-Sensitive Information
+
+❌ **Bad**:
+```markdown
+If you're doing this before August 2025, use the old API.
+After August 2025, use the new API.
+```
+
+✅ **Good**:
+```markdown
+## Current method
+
+Use the v2 API endpoint: `api.example.com/v2/messages`
+
+## Old patterns
+
+<details>
+<summary>Legacy v1 API (deprecated 2025-08)</summary>
+
+The v1 API used: `api.example.com/v1/messages`
+
+This endpoint is no longer supported.
+</details>
+```
+
+### Provide Examples (Input/Output Pairs)
+
+For skills where output quality depends on seeing examples:
+
+```markdown
+## Commit message format
+
+Generate commit messages following these examples:
+
+**Example 1:**
+Input: Added user authentication with JWT tokens
+Output:
+```
+feat(auth): implement JWT-based authentication
+
+Add login endpoint and token validation middleware
+```
+
+**Example 2:**
+Input: Fixed bug where dates displayed incorrectly in reports
+Output:
+```
+fix(reports): correct date formatting in timezone conversion
+
+Use UTC timestamps consistently across report generation
+```
+
+Follow this style: type(scope): brief description, then detailed explanation.
+```
+
+---
+
+## Common Patterns
+
+### Template Pattern
+
+Provide templates for output format. Match strictness to needs.
+
+**For strict requirements**:
+````markdown
+## Report structure
+
+ALWAYS use this exact template structure:
+
+```markdown
+# [Analysis Title]
+
+## Executive summary
+[One-paragraph overview of key findings]
+
+## Key findings
+- Finding 1 with supporting data
+- Finding 2 with supporting data
+- Finding 3 with supporting data
+
+## Recommendations
+1. Specific actionable recommendation
+2. Specific actionable recommendation
+```
+````
+
+**For flexible guidance**:
+````markdown
+## Report structure
+
+Here is a sensible default format, but use your best judgment:
+
+```markdown
+# [Analysis Title]
+
+## Executive summary
+[Overview]
+
+## Key findings
+[Adapt sections based on what you discover]
+
+## Recommendations
+[Tailor to the specific context]
+```
+
+Adjust sections as needed for the specific analysis type.
+````
+
+### Conditional Workflow Pattern
+
+Guide Claude through decision points:
+
+```markdown
+## Document modification workflow
+
+1. Determine the modification type:
+
+   **Creating new content?** → Follow "Creation workflow" below
+   **Editing existing content?** → Follow "Editing workflow" below
+
+2. Creation workflow:
+   - Use docx-js library
+   - Build document from scratch
+   - Export to .docx format
+
+3. Editing workflow:
+   - Unpack existing document
+   - Modify XML directly
+   - Validate after each change
+   - Repack when complete
+```
+
+---
+
+## Anti-Patterns to Avoid
+
+### ❌ Windows-Style Paths
+
+Always use forward slashes:
+
+✅ **Good**: `scripts/helper.py`, `reference/guide.md`
+❌ **Bad**: `scripts\helper.py`, `reference\guide.md`
+
+### ❌ Too Many Options
+
+Don't present multiple approaches unless necessary:
+
+❌ **Bad**:
+"You can use pypdf, or pdfplumber, or PyMuPDF, or pdf2image, or..."
+
+✅ **Good**:
+"Use pdfplumber for text extraction:
+```python
+import pdfplumber
+```
+
+For scanned PDFs requiring OCR, use pdf2image with pytesseract instead."
+
+### ❌ Nested References
+
+❌ **Bad**: SKILL.md → advanced.md → details.md → actual info
+✅ **Good**: SKILL.md → [topic].md (all references one level deep)
+
+### ❌ Over-Explaining Basics
+
+❌ **Bad** (150 tokens):
+"PDF files are a common format. They contain text and images. To process them, you need a library. Python has many PDF libraries. We recommend pdfplumber because..."
+
+✅ **Good** (30 tokens):
+"Use pdfplumber for PDF text extraction:
+```python
+import pdfplumber
+with pdfplumber.open("file.pdf") as pdf:
+    text = pdf.pages[0].extract_text()
+```"
+
+---
+
+## Quality Checklist
+
+Before submitting a skill:
+
+### Core Quality
+- [ ] Description is specific and includes key terms
+- [ ] Description includes both what it does and when to use it
+- [ ] SKILL.md body is under 500 lines (aim for 200-300)
+- [ ] Additional details in separate files (if needed)
+- [ ] No time-sensitive information (or in "old patterns" section)
+- [ ] Consistent terminology throughout
+- [ ] Examples are concrete, not abstract
+- [ ] File references are one level deep
+- [ ] Progressive disclosure used appropriately
+- [ ] Workflows have clear steps with checklists
+
+### Code and Scripts
+- [ ] Scripts solve problems rather than punt to Claude
+- [ ] Error handling is explicit and helpful
+- [ ] No "magic numbers" (all values justified)
+- [ ] Required packages listed in instructions
+- [ ] No Windows-style paths (all forward slashes)
+- [ ] Validation/verification steps for critical operations
+- [ ] Feedback loops included for quality-critical tasks
+
+### Content Quality
+- [ ] Assumes Claude is smart (no over-explaining basics)
+- [ ] Third person description
+- [ ] Gerund naming (e.g., "serving-llms" not "llm-server")
+- [ ] Clear when to use vs alternatives
+- [ ] Concrete examples with input/output pairs
+- [ ] Troubleshooting section with common issues
+
+---
+
+## Recommended Process
+
+### 1. Research Phase
+
+- Read official documentation thoroughly
+- Analyze real-world usage (blog posts, Stack Overflow, GitHub issues)
+- Identify key concepts and common gotchas
+- Find production code examples
+
+### 2. Outline Phase
+
+Create structure outline:
+1. Quick start (20-30 lines)
+2. Common workflows with checklists (80-120 lines)
+3. When to use vs alternatives (20-30 lines)
+4. Common issues (30-50 lines)
+5. Advanced topics with links to reference files (10-20 lines)
+
+**Target**: 200-300 lines for SKILL.md
+
+### 3. Writing Phase
+
+Use SKILL_TEMPLATE.md as starting point:
+- Fill in YAML frontmatter (name, description)
+- Write concise quick start
+- Create 2-3 workflows with copy-paste checklists
+- Add common issues section
+- Link to reference files for advanced topics
+
+### 4. Reference Files Phase
+
+Create separate markdown files for:
+- Detailed API documentation
+- Advanced features
+- Troubleshooting guides
+- Configuration references
+- Domain-specific content
+
+Each file:
+- Has clear purpose
+- Links directly from SKILL.md
+- Includes table of contents if >100 lines
+- Focuses on one topic
+
+### 5. Testing Phase
+
+Test with Claude:
+- Activate the skill
+- Try common workflows
+- Verify checklist format works
+- Test progressive disclosure (does Claude load right files?)
+- Check cross-references work
+
+### 6. Iteration Phase
+
+Based on testing:
+- Simplify over-explained sections
+- Add missing common issues
+- Improve workflow clarity
+- Reorganize reference files if needed
+
+---
+
+## Examples of Good Skills
+
+**For structure reference**, see official Anthropic examples in `anthropic_official_docs/best_practices.md`:
+- PDF Processing skill (lines 286-307)
+- BigQuery skill (lines 316-344)
+- Git Commit Helper (lines 229-233)
+
+**From this project**:
+- Reference GRPO-RL-Training skill for comprehensive workflows
+- But make it MORE CONCISE following Anthropic guidelines
+
+---
+
+## Common Mistakes to Avoid
+
+1. **Making SKILL.md too long** (>500 lines is RED FLAG)
+2. **Over-explaining basics** (assume Claude knows ML/programming)
+3. **No workflows with checklists** (makes complex tasks hard)
+4. **Nested references** (keep one level deep)
+5. **First-person descriptions** (use third person!)
+6. **Vague skill names** (use gerund form with specific terms)
+7. **No "when to use vs alternatives"** (critical for skill selection)
+8. **Missing validation steps** (add feedback loops)
+9. **Too many options** (provide default with escape hatch)
+10. **Time-sensitive info** (use "old patterns" section instead)
+
+---
+
+## Resources
+
+- **Anthropic Official Best Practices**: [anthropic_official_docs/best_practices.md](anthropic_official_docs/best_practices.md)
+- **Skill Template**: [SKILL_TEMPLATE.md](SKILL_TEMPLATE.md)
+- **Contributing Guide**: [CONTRIBUTING.md](CONTRIBUTING.md)

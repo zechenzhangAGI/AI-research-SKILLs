@@ -88,28 +88,36 @@ mv output/vllm_data/ .metadata/vllm_data/
 
 ### Step 5: Validate Quality
 
-**Minimum Requirements** (or skill will be rejected):
-- ✅ SKILL.md: 100+ lines of **real, useful content**
-- ✅ Step-by-step workflows with code examples
-- ✅ When to use / when NOT to use guidance
-- ✅ Troubleshooting section with real issues
-- ✅ Code examples with language detection (```python, ```bash, etc.)
-- ✅ Production-ready patterns and best practices
+**Based on [Anthropic Official Best Practices](anthropic_official_docs/best_practices.md)**
 
-**Gold Standard** (aim for this - see GRPO skill):
-- ✅ SKILL.md: 300-600 lines of expert guidance
-- ✅ Complete implementation workflow
-- ✅ Multiple real code examples (not just API calls)
-- ✅ Common pitfalls and solutions
-- ✅ Performance tips and optimization strategies
-- ✅ Debugging guide
-- ✅ References to official docs (not just copy-paste)
+**Core Requirements** (or skill will be rejected):
+- ✅ YAML frontmatter with `name` (gerund form, e.g., "serving-llms") and `description` (third person, includes what AND when)
+- ✅ SKILL.md body: **200-300 lines** (under 500 lines maximum)
+- ✅ Progressive disclosure: SKILL.md as overview, details in separate reference files
+- ✅ Workflows with copy-paste checklists for complex tasks
+- ✅ When to use vs alternatives guidance
+- ✅ Common issues section with solutions
+- ✅ Concise content: assume Claude is smart, no over-explaining basics
+- ✅ Code examples with language detection (```python, ```bash, etc.)
+
+**Gold Standard** (aim for this):
+- ✅ SKILL.md: 200-300 lines of focused, actionable guidance
+- ✅ 2-3 complete workflows with step-by-step checklists
+- ✅ Reference files for advanced topics (one level deep from SKILL.md)
+- ✅ Feedback loops (validate → fix → repeat) for quality-critical operations
+- ✅ Consistent terminology throughout
+- ✅ Concrete examples (input/output pairs where helpful)
+- ✅ Clear, concise troubleshooting guide
 
 **NOT Acceptable**:
+- ❌ SKILL.md over 500 lines (split into reference files instead)
+- ❌ Over-explaining basics that Claude already knows
+- ❌ First-person descriptions ("I can help you...")
+- ❌ Vague skill names ("helper", "utils", "tools")
+- ❌ Nested references (SKILL.md → ref1.md → ref2.md)
 - ❌ Generic templates that just link to README/CHANGELOG
-- ❌ Scraped GitHub issues with no context
-- ❌ "See the docs" without actual guidance
-- ❌ Skills under 100 lines
+- ❌ Missing workflows with checklists for complex tasks
+- ❌ Time-sensitive information (use "old patterns" section instead)
 
 **Quick Quality Check**:
 ```bash
