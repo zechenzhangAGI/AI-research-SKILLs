@@ -1,6 +1,11 @@
 ---
-name: "clip"
-description: "OpenAI's model connecting vision and language. Enables zero-shot image classification, image-text matching, and cross-modal retrieval. Trained on 400M image-text pairs. Use for image search, content moderation, or vision-language tasks without fine-tuning. Best for general-purpose image understanding."
+name: clip
+description: OpenAI's model connecting vision and language. Enables zero-shot image classification, image-text matching, and cross-modal retrieval. Trained on 400M image-text pairs. Use for image search, content moderation, or vision-language tasks without fine-tuning. Best for general-purpose image understanding.
+version: 1.0.0
+author: Orchestra Research
+license: MIT
+tags: [CLIP, Vision-Language, Multimodal, Zero-Shot, Image Classification, OpenAI, Image Search, Cross-Modal Retrieval, Content Moderation]
+dependencies: [transformers, torch, pillow]
 ---
 
 # CLIP - Contrastive Language-Image Pre-Training

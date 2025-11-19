@@ -1,3 +1,13 @@
+---
+name: instructor
+description: Extract structured data from LLM responses with Pydantic validation, retry failed extractions automatically, parse complex JSON with type safety, and stream partial results with Instructor - battle-tested structured output library
+version: 1.0.0
+author: AI Research Skills Contributors
+license: MIT
+tags: [Prompt Engineering, Instructor, Structured Output, Pydantic, Data Extraction, JSON Parsing, Type Safety, Validation, Streaming, OpenAI, Anthropic]
+dependencies: [instructor, pydantic, openai, anthropic]
+---
+
 # Instructor: Structured LLM Outputs
 
 ## When to Use This Skill

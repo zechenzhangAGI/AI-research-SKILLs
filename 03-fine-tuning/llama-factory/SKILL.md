@@ -1,11 +1,11 @@
 ---
-name: "llama-factory"
-description: "Expert guidance for fine-tuning LLMs with LLaMA-Factory - WebUI no-code, 100+ models, 2/3/4/5/6/8-bit QLoRA, multimodal support"
-version: "1.0.0"
-author: "AI Research Skills Contributors"
-license: "MIT"
-tags: ["llama-factory", "fine-tuning", "llm", "webui", "no-code", "qlora", "lora", "multimodal", "huggingface", "llama", "qwen", "gemma"]
-dependencies: ["llmtuner", "torch", "transformers", "datasets", "peft", "accelerate", "gradio"]
+name: llama-factory
+description: Expert guidance for fine-tuning LLMs with LLaMA-Factory - WebUI no-code, 100+ models, 2/3/4/5/6/8-bit QLoRA, multimodal support
+version: 1.0.0
+author: Orchestra Research
+license: MIT
+tags: [LLaMA Factory, Fine-Tuning, LLM, WebUI, No-Code, QLoRA, LoRA, Multimodal, HuggingFace, Llama, Qwen, Gemma]
+dependencies: [llmtuner, torch, transformers, datasets, peft, accelerate, gradio]
 ---
 
 # Llama-Factory Skill

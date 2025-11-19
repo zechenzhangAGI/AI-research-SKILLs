@@ -1,6 +1,11 @@
 ---
-name: "langchain"
-description: "Framework for building LLM-powered applications with agents, chains, and RAG. Supports multiple providers (OpenAI, Anthropic, Google), 500+ integrations, ReAct agents, tool calling, memory management, and vector store retrieval. Use for building chatbots, question-answering systems, autonomous agents, or RAG applications. Best for rapid prototyping and production deployments."
+name: langchain
+description: Framework for building LLM-powered applications with agents, chains, and RAG. Supports multiple providers (OpenAI, Anthropic, Google), 500+ integrations, ReAct agents, tool calling, memory management, and vector store retrieval. Use for building chatbots, question-answering systems, autonomous agents, or RAG applications. Best for rapid prototyping and production deployments.
+version: 1.0.0
+author: Orchestra Research
+license: MIT
+tags: [LangChain, Agents, RAG, Tool Calling, ReAct, Memory Management, Vector Stores, LLM Applications, Chatbots, Production]
+dependencies: [langchain, langchain-core, langchain-openai, langchain-anthropic]
 ---
 
 # LangChain - Build LLM Applications with Agents & RAG

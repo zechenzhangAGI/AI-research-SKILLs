@@ -1,6 +1,11 @@
 ---
-name: "openrlhf-training"
-description: "High-performance RLHF framework with Ray+vLLM acceleration. Use for PPO, GRPO, RLOO, DPO training of large models (7B-70B+). Built on Ray, vLLM, ZeRO-3. 2× faster than DeepSpeedChat with distributed architecture and GPU resource sharing."
+name: openrlhf-training
+description: High-performance RLHF framework with Ray+vLLM acceleration. Use for PPO, GRPO, RLOO, DPO training of large models (7B-70B+). Built on Ray, vLLM, ZeRO-3. 2× faster than DeepSpeedChat with distributed architecture and GPU resource sharing.
+version: 1.0.0
+author: Orchestra Research
+license: MIT
+tags: [OpenRLHF, RLHF, PPO, GRPO, RLOO, DPO, Post-Training, Ray, vLLM, Distributed Training, Large Models, ZeRO-3]
+dependencies: [openrlhf, ray, vllm, torch, transformers, deepspeed]
 ---
 
 # OpenRLHF - High-Performance RLHF Training
