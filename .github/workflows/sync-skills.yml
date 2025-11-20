@@ -112,16 +112,17 @@ jobs:
             # Read SKILL.md content
             SKILL_MD_CONTENT=$(cat "$SKILL_PATH/SKILL.md")
 
-            # Encode zip to base64
-            ZIP_BASE64=$(base64 -w 0 "$ZIP_FILE" 2>/dev/null || base64 "$ZIP_FILE")
+            # Encode zip to base64 and write to temp file (avoid argument length limits)
+            ZIP_BASE64_FILE="$TEMP_DIR/base64.txt"
+            base64 -w 0 "$ZIP_FILE" > "$ZIP_BASE64_FILE" 2>/dev/null || base64 "$ZIP_FILE" > "$ZIP_BASE64_FILE"
 
-            # Prepare JSON payload (use stdin for large base64 to avoid argument length limits)
+            # Prepare JSON payload
             JSON_PAYLOAD=$(jq -n \
               --arg skillName "$SKILL_NAME" \
               --arg skillPath "$SKILL_PATH" \
               --arg author "$AUTHOR" \
               --arg skillMdContent "$SKILL_MD_CONTENT" \
-              --rawfile zipBase64 <(echo -n "$ZIP_BASE64") \
+              --rawfile zipBase64 "$ZIP_BASE64_FILE" \
               '{
                 skillName: $skillName,
                 skillPath: $skillPath,
