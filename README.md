@@ -33,7 +33,7 @@ Modern AI research requires mastering dozens of specialized tools and frameworks
 AI Researchers spend more time debugging infrastructure than testing hypotheses—slowing the pace of scientific discovery. 
 We provide a comprehensive library of expert-level research engineering skills that enable AI agents to autonomously implement and execute different stages of AI research experiments—from data preparation and model training to evaluation and deployment.
   - Specialized Expertise - Each skill provides deep, production-ready knowledge of a specific framework (Megatron-LM, vLLM, TRL, etc.)
-  - End-to-End Coverage - 70 skills spanning model architecture, tokenization, fine-tuning, data processing, post-training, distributed training, optimization, inference, infrastructure, agents, RAG, multimodal, prompt engineering, MLOps, observability, and emerging techniques
+  - End-to-End Coverage - 74 skills spanning model architecture, tokenization, fine-tuning, mechanistic interpretability, data processing, post-training, distributed training, optimization, inference, infrastructure, agents, RAG, multimodal, prompt engineering, MLOps, observability, and emerging techniques
   - Research-Grade Quality - Documentation sourced from official repos, real GitHub issues, and battle-tested production workflows
 
 ## Available AI Research Engineering Skills  
@@ -69,6 +69,12 @@ Install individual skills directly from the marketplace using the Claude Code CL
 - **[LLaMA-Factory](03-fine-tuning/llama-factory/)** - WebUI no-code fine-tuning (78 lines + 5 refs)
 - **[Unsloth](03-fine-tuning/unsloth/)** - 2x faster QLoRA fine-tuning (75 lines + 4 refs)
 - **[PEFT](03-fine-tuning/peft/)** - Parameter-efficient fine-tuning with LoRA, QLoRA, DoRA, 25+ methods (431 lines + 2 refs)
+
+### 🔬 Mechanistic Interpretability (4 skills)
+- **[TransformerLens](04-mechanistic-interpretability/transformer-lens/)** - Neel Nanda's library for mech interp with HookPoints, activation caching (346 lines + 3 refs)
+- **[SAELens](04-mechanistic-interpretability/saelens/)** - Sparse Autoencoder training and analysis for feature discovery (386 lines + 3 refs)
+- **[pyvene](04-mechanistic-interpretability/pyvene/)** - Stanford's causal intervention library with declarative configs (473 lines + 3 refs)
+- **[nnsight](04-mechanistic-interpretability/nnsight/)** - Remote interpretability via NDIF, run experiments on 70B+ models (436 lines + 3 refs)
 
 ### 📊 Data Processing (2 skills)
 - **[Ray Data](05-data-processing/ray-data/)** - Distributed ML data processing, streaming execution, GPU support (318 lines + 2 refs)
@@ -161,12 +167,13 @@ Install individual skills directly from the marketplace using the Claude Code CL
 - **[Model Pruning](19-emerging-techniques/model-pruning/)** - 50% sparsity with Wanda, SparseGPT, <1% accuracy loss (417 lines)
  
 
-**Available skills in Claude marketplace** (70 total):
+**Available skills in Claude marketplace** (74 total):
 | Category | Skills |
 |----------|--------|
 | Model Architecture | `implementing-llms-litgpt`, `mamba-architecture`, `nanogpt`, `rwkv-architecture` |
 | Tokenization | `huggingface-tokenizers`, `sentencepiece` |
 | Fine-Tuning | `axolotl`, `llama-factory`, `peft-fine-tuning`, `unsloth` |
+| Mechanistic Interpretability | `transformer-lens-interpretability`, `sparse-autoencoder-training`, `pyvene-interventions`, `nnsight-remote-interpretability` |
 | Data Processing | `nemo-curator`, `ray-data` |
 | Post-Training | `grpo-rl-training`, `openrlhf-training`, `simpo-training`, `fine-tuning-with-trl` |
 | Safety | `constitutional-ai`, `llamaguard`, `nemo-guardrails` |
@@ -185,7 +192,7 @@ Install individual skills directly from the marketplace using the Claude Code CL
 
 ## Demo
 
-All 70 skills in this repo are automatically synced to [Orchestra Research](https://www.orchestra-research.com/research-skills), where you can add them to your projects with one click and use them with AI research agents.
+All 74 skills in this repo are automatically synced to [Orchestra Research](https://www.orchestra-research.com/research-skills), where you can add them to your projects with one click and use them with AI research agents.
 
 **[Demo](https://www.orchestra-research.com/perspectives/LLM-with-Orchestra)**: With this `skills`, a physics PhD is able to [reproduce](https://www.orchestra-research.com/perspectives/LLM-with-Orchestra) Thinking Machines Lab's "LoRA Without Regret" findings. 
 The Orchestra agent autonomously wrote training code using TRL, provisioned H100 GPUs, ran GRPO experiments overnight, and generated publication-ready analysis, successfully validating that rank=16 LoRA achieves 99.4% of rank=256's SFT performance and that rank=1 LoRA outperforms full fine-tuning on RL tasks (52.1% vs 33.3% on GSM8k math reasoning). ([Video demo](https://www.youtube.com/watch?v=X0DoLYfXl5I))
@@ -264,7 +271,7 @@ skill-name/
 
 ## Roadmap
 
-We're building towards 70 comprehensive skills across the full AI research lifecycle. See our [detailed roadmap](ROADMAP.md) for the complete development plan.
+We're building towards 80 comprehensive skills across the full AI research lifecycle. See our [detailed roadmap](ROADMAP.md) for the complete development plan.
  
 [View Full Roadmap →](ROADMAP.md)
 
@@ -273,14 +280,14 @@ We're building towards 70 comprehensive skills across the full AI research lifec
 
 | Metric | Current | Target |
 |--------|---------|--------|
-| **Skills** | **70** (high-quality, standardized YAML) | 70 ✅ |
+| **Skills** | **74** (high-quality, standardized YAML) | 80 |
 | **Avg Lines/Skill** | **420 lines** (focused + progressive disclosure) | 200-600 lines |
-| **Documentation** | **~115,000 lines** total (SKILL.md + references) | 100,000+ lines |
-| **Gold Standard Skills** | **58** with comprehensive references | 50+ |
+| **Documentation** | **~120,000 lines** total (SKILL.md + references) | 100,000+ lines |
+| **Gold Standard Skills** | **62** with comprehensive references | 50+ |
 | **Contributors** | 1 | 100+ |
-| **Coverage** | Architecture, Tokenization, Fine-Tuning, Data Processing, Post-Training, Safety, Distributed, Optimization, Evaluation, Infrastructure, Inference, Agents, RAG, Multimodal, Prompt Engineering, MLOps, Observability | Full Lifecycle ✅ |
+| **Coverage** | Architecture, Tokenization, Fine-Tuning, Mechanistic Interpretability, Data Processing, Post-Training, Safety, Distributed, Optimization, Evaluation, Infrastructure, Inference, Agents, RAG, Multimodal, Prompt Engineering, MLOps, Observability | Full Lifecycle ✅ |
 
-**Recent Progress**: +4 skills (Lambda Labs, SAM, BLIP-2, AudioCraft) completing the 70-skill roadmap with GPU cloud and extended multimodal capabilities
+**Recent Progress**: +4 skills (TransformerLens, SAELens, pyvene, nnsight) adding Mechanistic Interpretability category for reverse-engineering neural networks
 
 **Philosophy**: Quality > Quantity. Following [Anthropic official best practices](anthropic_official_docs/best_practices.md) - each skill provides 200-500 lines of focused, actionable guidance with progressive disclosure.
 
@@ -300,6 +307,7 @@ claude-ai-research-skills/
 ├── 01-model-architecture/       (5 skills ✓ - Megatron, LitGPT, Mamba, RWKV, NanoGPT)
 ├── 02-tokenization/             (2 skills ✓ - HuggingFace Tokenizers, SentencePiece)
 ├── 03-fine-tuning/              (4 skills ✓ - Axolotl, LLaMA-Factory, Unsloth, PEFT)
+├── 04-mechanistic-interpretability/ (4 skills ✓ - TransformerLens, SAELens, pyvene, nnsight)
 ├── 05-data-processing/          (2 skills ✓ - Ray Data, NeMo Curator)
 ├── 06-post-training/            (4 skills ✓ - TRL, GRPO, OpenRLHF, SimPO)
 ├── 07-safety-alignment/         (3 skills ✓ - Constitutional AI, LlamaGuard, NeMo Guardrails)
@@ -366,6 +374,19 @@ All contributors are featured in our [Contributors Hall of Fame](CONTRIBUTORS.md
  
 
 ## Recent Updates
+
+<details>
+<summary><b>December 2025 - v0.11.0 🔬 Mechanistic Interpretability</b></summary>
+
+- 🔬 **NEW CATEGORY**: Mechanistic Interpretability (4 skills)
+- 🔍 TransformerLens skill: Neel Nanda's library for mech interp with HookPoints, activation caching, circuit analysis
+- 🧠 SAELens skill: Sparse Autoencoder training and analysis for feature discovery, monosemanticity research
+- ⚡ pyvene skill: Stanford's causal intervention library with declarative configs, DAS, activation patching
+- 🌐 nnsight skill: Remote interpretability via NDIF, run experiments on 70B+ models without local GPUs
+- 📝 ~6,500 new lines of documentation across 16 files
+- **74 total skills** (filling the missing 04 category slot)
+
+</details>
 
 <details>
 <summary><b>November 25, 2025 - v0.10.0 🎉 70 Skills Complete!</b></summary>
