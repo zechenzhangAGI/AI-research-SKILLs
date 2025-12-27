@@ -6,6 +6,59 @@
 [![Blog Post](https://img.shields.io/badge/Blog-Read%20More-orange.svg)](https://www.orchestra-research.com/perspectives/ai-research-skills)
 [![Demo](https://img.shields.io/badge/Demo-LLM%20Fine--Tuning-blue.svg)](https://www.orchestra-research.com/perspectives/LLM-with-Orchestra)
 
+<div align="center">
+
+```
+        ❄️                                              ❄️
+                  ❄️            ⭐            ❄️
+                               /█\
+              ❄️              /███\              ❄️
+                             /█████\
+                            /███████\
+                   🔴      /█████████\      🔴
+          ❄️              /███████████\              ❄️
+                 🟢      /█████████████\      🟢
+                        /███████████████\
+               🔵      /███████████████████\      🔵
+      ❄️              /█████████████████████\              ❄️
+             🟡      /███████████████████████\      🟡
+                    /█████████████████████████\
+           🟣      /███████████████████████████\      🟣
+  ❄️              /█████████████████████████████\              ❄️
+         🟠      /███████████████████████████████\      🟠
+                /█████████████████████████████████\
+                              ▐██▌
+        ❄️                    ▐██▌                    ❄️
+                         🎁   🎁   🎁
+```
+
+### **74 Skills Wrapped & Ready for 2025!**
+
+*Happy Holidays from the AI Research Skills team* ❄️
+
+</div>
+
+<details>
+<summary>🎄 <b>Unwrap the Ornaments</b> - See all 18 categories</summary>
+
+<div align="center">
+
+| | | |
+|:---:|:---:|:---:|
+| 🔴 **Model Architecture** (5) | 🟢 **Fine-Tuning** (4) | 🔵 **Post-Training** (4) |
+| 🟡 **Distributed Training** (5) | 🟣 **Optimization** (6) | 🟠 **Inference** (4) |
+| ❄️ **Tokenization** (2) | ⭐ **Data Processing** (2) | 🎄 **Evaluation** (1) |
+| 🔔 **Safety & Alignment** (3) | 🎁 **Agents** (4) | ❄️ **RAG** (5) |
+| 🌟 **Multimodal** (7) | 🎅 **Prompt Engineering** (4) | 🦌 **MLOps** (3) |
+| ☃️ **Observability** (2) | 🎿 **Infrastructure** (3) | 🧊 **Mech Interp** (4) |
+| | 🎉 **Emerging Techniques** (6) | |
+
+</div>
+
+</details>
+
+---
+
 ## Table of Contents
 
 - [Our Mission](#our-mission)
