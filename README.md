@@ -8,8 +8,6 @@
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/zechenzhangAGI/AI-research-SKILLs/main/docs/tech-tree.svg" alt="AI Research Skills Tech Tree" width="600">
-
 ### **75 Skills Powering AI Research in 2026**
 
 </div>
