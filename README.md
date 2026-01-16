@@ -13,7 +13,7 @@
 </div>
 
 <details>
-<summary><b>View All 18 Categories</b></summary>
+<summary><b>View All 19 Categories</b></summary>
 
 <div align="center">
 

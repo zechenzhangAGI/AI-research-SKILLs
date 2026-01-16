@@ -10,25 +10,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Architecture
 
-### Directory Structure (54 Skills Across 18 Categories)
+### Directory Structure (76 Skills Across 19 Categories)
 
 Skills are organized into numbered categories representing the AI research lifecycle:
 
 - `01-model-architecture/` - Model architectures (5 skills: Megatron-Core, LitGPT, Mamba, RWKV, NanoGPT)
 - `02-tokenization/` - Tokenizers (2 skills: HuggingFace Tokenizers, SentencePiece)
-- `03-fine-tuning/` - Fine-tuning frameworks (3 skills: Axolotl, LLaMA-Factory, Unsloth)
+- `03-fine-tuning/` - Fine-tuning frameworks (4 skills: Axolotl, LLaMA-Factory, Unsloth, Torchtune)
+- `04-mechanistic-interpretability/` - Interpretability tools (4 skills: TransformerLens, SAELens, NNsight, Pyvene)
 - `05-data-processing/` - Data curation (2 skills: Ray Data, NeMo Curator)
 - `06-post-training/` - RLHF/DPO/GRPO (4 skills: TRL, GRPO, OpenRLHF, SimPO)
 - `07-safety-alignment/` - Safety and guardrails (3 skills: Constitutional AI, LlamaGuard, NeMo Guardrails)
 - `08-distributed-training/` - Distributed systems (5 skills: DeepSpeed, FSDP, Accelerate, PyTorch Lightning, Ray Train)
-- `10-optimization/` - Optimization techniques (3 skills: Flash Attention, bitsandbytes, GPTQ)
-- `11-evaluation/` - Benchmarking (1 skill: lm-evaluation-harness)
+- `09-infrastructure/` - Cloud compute (3 skills: Modal, SkyPilot, Lambda Labs)
+- `10-optimization/` - Optimization techniques (6 skills: Flash Attention, bitsandbytes, GPTQ, AWQ, GGUF, Quanto)
+- `11-evaluation/` - Benchmarking (3 skills: lm-evaluation-harness, NeMo Evaluator, Inspect AI)
 - `12-inference-serving/` - Inference engines (4 skills: vLLM, TensorRT-LLM, llama.cpp, SGLang)
 - `13-mlops/` - Experiment tracking (3 skills: Weights & Biases, MLflow, TensorBoard)
-- `14-agents/` - Agent frameworks (2 skills: LangChain, LlamaIndex)
-- `15-rag/` - Retrieval-augmented generation (4 skills: Chroma, FAISS, Sentence Transformers, Pinecone)
+- `14-agents/` - Agent frameworks (4 skills: LangChain, LlamaIndex, Smolagents, Claude Agent SDK)
+- `15-rag/` - Retrieval-augmented generation (5 skills: Chroma, FAISS, Sentence Transformers, Pinecone, Milvus)
 - `16-prompt-engineering/` - Structured output (4 skills: DSPy, Instructor, Guidance, Outlines)
-- `18-multimodal/` - Vision and speech (3 skills: CLIP, Whisper, LLaVA)
+- `17-observability/` - LLM observability (2 skills: LangSmith, Phoenix)
+- `18-multimodal/` - Vision and speech (7 skills: CLIP, Whisper, LLaVA, Qwen2-VL, Pixtral, Florence-2, ColPali)
 - `19-emerging-techniques/` - Advanced methods (6 skills: MoE Training, Model Merging, Long Context, Speculative Decoding, Knowledge Distillation, Model Pruning)
 
 ### Skill File Structure
