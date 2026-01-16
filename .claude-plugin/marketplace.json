@@ -1,107 +1,241 @@
 {
   "name": "ai-research-skills",
   "owner": {
-    "name": "Orchestra Research"
+    "name": "Orchestra Research",
+    "email": "zechen@orchestra-research.com"
   },
   "metadata": {
-    "description": "Comprehensive library of 76 AI research engineering skills enabling autonomous AI research from hypothesis to experimental verification, covering model architectures, training pipelines, optimization, evaluation, and deployment",
+    "description": "Comprehensive library of 76 AI research engineering skills enabling autonomous AI research from hypothesis to experimental verification",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "model-architecture",
-      "source": "./01-model-architecture",
-      "description": "LLM architectures and implementations. Includes LitGPT (20+ models like Llama, Gemma, Phi), Mamba (O(n) state-space models), NanoGPT (educational GPT-2), and RWKV (RNN-Transformer hybrid). Use when implementing, training, or understanding transformer and alternative architectures."
+      "description": "LLM architectures and implementations including LitGPT, Mamba, NanoGPT, and RWKV. Use when implementing, training, or understanding transformer and alternative architectures.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./01-model-architecture/litgpt",
+        "./01-model-architecture/mamba",
+        "./01-model-architecture/nanogpt",
+        "./01-model-architecture/rwkv"
+      ]
     },
     {
       "name": "tokenization",
-      "source": "./02-tokenization",
-      "description": "Text tokenization for LLMs. Includes HuggingFace Tokenizers (Rust-based, 1GB in <20s) and SentencePiece (language-independent, multilingual). Use when training custom tokenizers, handling multilingual text, or optimizing tokenization performance."
+      "description": "Text tokenization for LLMs including HuggingFace Tokenizers and SentencePiece. Use when training custom tokenizers or handling multilingual text.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./02-tokenization/huggingface-tokenizers",
+        "./02-tokenization/sentencepiece"
+      ]
     },
     {
       "name": "fine-tuning",
-      "source": "./03-fine-tuning",
-      "description": "LLM fine-tuning frameworks. Includes Axolotl (YAML configs, 100+ models), LLaMA-Factory (WebUI no-code), PEFT (LoRA/QLoRA, 25+ methods), and Unsloth (2-5x faster, 50-80% less memory). Use when fine-tuning models with LoRA, QLoRA, or full fine-tuning."
+      "description": "LLM fine-tuning frameworks including Axolotl, LLaMA-Factory, PEFT, and Unsloth. Use when fine-tuning models with LoRA, QLoRA, or full fine-tuning.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./03-fine-tuning/axolotl",
+        "./03-fine-tuning/llama-factory",
+        "./03-fine-tuning/peft",
+        "./03-fine-tuning/unsloth"
+      ]
     },
     {
       "name": "mechanistic-interpretability",
-      "source": "./04-mechanistic-interpretability",
-      "description": "Neural network interpretability tools. Includes TransformerLens (circuit analysis), SAELens (sparse autoencoders), NNSight (activation patching), and pyvene (intervention library). Use when analyzing model internals, finding circuits, or understanding how models compute."
+      "description": "Neural network interpretability tools including TransformerLens, SAELens, NNSight, and pyvene. Use when analyzing model internals, finding circuits, or understanding how models compute.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./04-mechanistic-interpretability/nnsight",
+        "./04-mechanistic-interpretability/pyvene",
+        "./04-mechanistic-interpretability/saelens",
+        "./04-mechanistic-interpretability/transformer-lens"
+      ]
     },
     {
       "name": "data-processing",
-      "source": "./05-data-processing",
-      "description": "Data curation and processing at scale. Includes NeMo Curator (GPU-accelerated deduplication, quality filtering, PII redaction) and Ray Data (distributed processing, streaming execution). Use when preparing training datasets or processing large-scale data."
+      "description": "Data curation and processing at scale including NeMo Curator and Ray Data. Use when preparing training datasets or processing large-scale data.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./05-data-processing/nemo-curator",
+        "./05-data-processing/ray-data"
+      ]
     },
     {
       "name": "post-training",
-      "source": "./06-post-training",
-      "description": "RLHF and preference alignment. Includes TRL (SFT, DPO, PPO, GRPO), GRPO (Group Relative Policy Optimization), OpenRLHF (Ray+vLLM acceleration), and SimPO (reference-free alignment). Use when aligning models with human preferences or training reward models."
+      "description": "RLHF and preference alignment including TRL, GRPO, OpenRLHF, and SimPO. Use when aligning models with human preferences or training reward models.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./06-post-training/grpo-rl-training",
+        "./06-post-training/openrlhf",
+        "./06-post-training/simpo",
+        "./06-post-training/trl-fine-tuning"
+      ]
     },
     {
       "name": "safety-alignment",
-      "source": "./07-safety-alignment",
-      "description": "AI safety and content moderation. Includes Constitutional AI (self-improvement training), LlamaGuard (input/output moderation), and NeMo Guardrails (runtime safety with Colang DSL). Use when implementing safety filters, content moderation, or jailbreak detection."
+      "description": "AI safety and content moderation including Constitutional AI, LlamaGuard, and NeMo Guardrails. Use when implementing safety filters or content moderation.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./07-safety-alignment/constitutional-ai",
+        "./07-safety-alignment/llamaguard",
+        "./07-safety-alignment/nemo-guardrails"
+      ]
     },
     {
       "name": "distributed-training",
-      "source": "./08-distributed-training",
-      "description": "Multi-GPU and multi-node training. Includes DeepSpeed (ZeRO stages), PyTorch FSDP (native sharding), Accelerate (4-line distributed), Megatron-Core (tensor/pipeline parallelism), PyTorch Lightning (Trainer class), and Ray Train (cluster orchestration). Use when training large models across GPUs."
+      "description": "Multi-GPU and multi-node training including DeepSpeed, PyTorch FSDP, Accelerate, Megatron-Core, PyTorch Lightning, and Ray Train. Use when training large models across GPUs.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./08-distributed-training/accelerate",
+        "./08-distributed-training/deepspeed",
+        "./08-distributed-training/megatron-core",
+        "./08-distributed-training/pytorch-fsdp",
+        "./08-distributed-training/pytorch-lightning",
+        "./08-distributed-training/ray-train"
+      ]
     },
     {
       "name": "infrastructure",
-      "source": "./09-infrastructure",
-      "description": "GPU cloud and compute orchestration. Includes Modal (serverless GPU), Lambda Labs (reserved instances), and SkyPilot (multi-cloud optimization). Use when deploying training jobs, managing GPU resources, or optimizing cloud costs."
+      "description": "GPU cloud and compute orchestration including Modal, Lambda Labs, and SkyPilot. Use when deploying training jobs or managing GPU resources.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./09-infrastructure/lambda-labs",
+        "./09-infrastructure/modal",
+        "./09-infrastructure/skypilot"
+      ]
     },
     {
       "name": "optimization",
-      "source": "./10-optimization",
-      "description": "Model optimization and quantization. Includes Flash Attention (2-4x speedup), bitsandbytes (8/4-bit quantization), GPTQ (4-bit post-training), AWQ (activation-aware), GGUF (llama.cpp format), and HQQ (calibration-free). Use when reducing memory, accelerating inference, or quantizing models."
+      "description": "Model optimization and quantization including Flash Attention, bitsandbytes, GPTQ, AWQ, GGUF, and HQQ. Use when reducing memory, accelerating inference, or quantizing models.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./10-optimization/awq",
+        "./10-optimization/bitsandbytes",
+        "./10-optimization/flash-attention",
+        "./10-optimization/gguf",
+        "./10-optimization/gptq",
+        "./10-optimization/hqq"
+      ]
     },
     {
       "name": "evaluation",
-      "source": "./11-evaluation",
-      "description": "LLM benchmarking and evaluation. Includes lm-evaluation-harness (60+ benchmarks like MMLU, HumanEval, GSM8K), BigCode Evaluation Harness (code models), and NeMo Evaluator (enterprise SDK). Use when benchmarking models or measuring performance on standard tasks."
+      "description": "LLM benchmarking and evaluation including lm-evaluation-harness, BigCode Evaluation Harness, and NeMo Evaluator. Use when benchmarking models or measuring performance.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./11-evaluation/bigcode-evaluation-harness",
+        "./11-evaluation/lm-evaluation-harness",
+        "./11-evaluation/nemo-evaluator"
+      ]
     },
     {
       "name": "inference-serving",
-      "source": "./12-inference-serving",
-      "description": "Production LLM inference. Includes vLLM (PagedAttention, continuous batching), TensorRT-LLM (NVIDIA optimization), llama.cpp (CPU/Apple Silicon), and SGLang (structured generation, RadixAttention). Use when deploying models for production inference."
+      "description": "Production LLM inference including vLLM, TensorRT-LLM, llama.cpp, and SGLang. Use when deploying models for production inference.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./12-inference-serving/llama-cpp",
+        "./12-inference-serving/sglang",
+        "./12-inference-serving/tensorrt-llm",
+        "./12-inference-serving/vllm"
+      ]
     },
     {
       "name": "mlops",
-      "source": "./13-mlops",
-      "description": "ML experiment tracking and lifecycle. Includes Weights & Biases (collaborative tracking, sweeps), MLflow (model registry, deployment), and TensorBoard (visualization, profiling). Use when tracking experiments, managing models, or visualizing training."
+      "description": "ML experiment tracking and lifecycle including Weights & Biases, MLflow, and TensorBoard. Use when tracking experiments or managing models.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./13-mlops/mlflow",
+        "./13-mlops/tensorboard",
+        "./13-mlops/weights-and-biases"
+      ]
     },
     {
       "name": "agents",
-      "source": "./14-agents",
-      "description": "LLM agent frameworks. Includes LangChain (chains, agents, RAG), LlamaIndex (document Q&A, indexing), CrewAI (multi-agent orchestration), and AutoGPT (autonomous agents). Use when building chatbots, autonomous agents, or tool-using systems."
+      "description": "LLM agent frameworks including LangChain, LlamaIndex, CrewAI, and AutoGPT. Use when building chatbots, autonomous agents, or tool-using systems.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./14-agents/autogpt",
+        "./14-agents/crewai",
+        "./14-agents/langchain",
+        "./14-agents/llamaindex"
+      ]
     },
     {
       "name": "rag",
-      "source": "./15-rag",
-      "description": "Retrieval-Augmented Generation. Includes Chroma (embedding database), FAISS (billion-scale vectors), Pinecone (managed vector DB), Qdrant (high-performance search), and Sentence Transformers (5000+ embedding models). Use when building semantic search or document retrieval systems."
+      "description": "Retrieval-Augmented Generation including Chroma, FAISS, Pinecone, Qdrant, and Sentence Transformers. Use when building semantic search or document retrieval systems.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./15-rag/chroma",
+        "./15-rag/faiss",
+        "./15-rag/pinecone",
+        "./15-rag/qdrant",
+        "./15-rag/sentence-transformers"
+      ]
     },
     {
       "name": "prompt-engineering",
-      "source": "./16-prompt-engineering",
-      "description": "Structured LLM outputs. Includes DSPy (automatic prompt optimization), Instructor (Pydantic validation), Guidance (regex/grammar control), and Outlines (guaranteed JSON/XML). Use when extracting structured data or constraining LLM outputs."
+      "description": "Structured LLM outputs including DSPy, Instructor, Guidance, and Outlines. Use when extracting structured data or constraining LLM outputs.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./16-prompt-engineering/dspy",
+        "./16-prompt-engineering/guidance",
+        "./16-prompt-engineering/instructor",
+        "./16-prompt-engineering/outlines"
+      ]
     },
     {
       "name": "observability",
-      "source": "./17-observability",
-      "description": "LLM application monitoring. Includes LangSmith (tracing, evaluation) and Phoenix (open-source observability). Use when debugging LLM apps, monitoring production systems, or evaluating outputs."
+      "description": "LLM application monitoring including LangSmith and Phoenix. Use when debugging LLM apps or monitoring production systems.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./17-observability/langsmith",
+        "./17-observability/phoenix"
+      ]
     },
     {
       "name": "multimodal",
-      "source": "./18-multimodal",
-      "description": "Vision, audio, and multimodal models. Includes CLIP (image-text matching), Whisper (speech recognition), LLaVA (visual chat), BLIP-2 (vision-language), Segment Anything (image segmentation), Stable Diffusion (text-to-image), and AudioCraft (music/audio generation). Use when working with images, audio, or multimodal tasks."
+      "description": "Vision, audio, and multimodal models including CLIP, Whisper, LLaVA, BLIP-2, Segment Anything, Stable Diffusion, and AudioCraft. Use when working with images, audio, or multimodal tasks.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./18-multimodal/audiocraft",
+        "./18-multimodal/blip-2",
+        "./18-multimodal/clip",
+        "./18-multimodal/llava",
+        "./18-multimodal/segment-anything",
+        "./18-multimodal/stable-diffusion",
+        "./18-multimodal/whisper"
+      ]
     },
     {
       "name": "emerging-techniques",
-      "source": "./19-emerging-techniques",
-      "description": "Advanced ML techniques. Includes MoE Training (Mixture of Experts), Model Merging (mergekit), Long Context (RoPE, YaRN), Speculative Decoding (1.5-3.6x speedup), Knowledge Distillation (model compression), and Model Pruning (Wanda, SparseGPT). Use when implementing cutting-edge optimization or architecture techniques."
+      "description": "Advanced ML techniques including MoE Training, Model Merging, Long Context, Speculative Decoding, Knowledge Distillation, and Model Pruning. Use when implementing cutting-edge optimization or architecture techniques.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./19-emerging-techniques/knowledge-distillation",
+        "./19-emerging-techniques/long-context",
+        "./19-emerging-techniques/model-merging",
+        "./19-emerging-techniques/model-pruning",
+        "./19-emerging-techniques/moe-training",
+        "./19-emerging-techniques/speculative-decoding"
+      ]
     }
   ]
 }
