@@ -418,6 +418,20 @@ All contributors are featured in our [Contributors Hall of Fame](CONTRIBUTORS.md
 
 ## Recent Updates
 
+<details open>
+<summary><b>January 2026 - v0.13.0 📝 ML Paper Writing & Demos Gallery</b></summary>
+
+- 📝 **NEW CATEGORY**: ML Paper Writing (20th category, 77th skill)
+- 🎯 Write publication-ready papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM
+- 📚 Writing philosophy from top researchers (Neel Nanda, Farquhar, Gopen & Swan, Lipton, Perez)
+- 🔬 Citation verification workflow - never hallucinate references
+- 📄 LaTeX templates for 6 major conferences
+- 🎪 **NEW**: Curated demos gallery (`demos/`) showcasing skills in action
+- 🔗 Demo repos: NeMo Evaluator benchmark, LoRA Without Regret reproduction
+- 📖 936-line comprehensive SKILL.md with 4 workflows
+
+</details>
+
 <details>
 <summary><b>January 2026 - v0.12.0 📊 NeMo Evaluator SDK</b></summary>
 
