@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@orchestra-research/ai-research-skills - UX Mockup</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+      background: #0d1117;
+      color: #c9d1d9;
+      padding: 40px;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #58a6ff;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #8b949e;
+      font-size: 18px;
+      margin-bottom: 30px;
+      font-weight: normal;
+    }
+
+    h3 {
+      color: #f0883e;
+      font-size: 16px;
+      margin: 40px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .terminal {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+
+    .terminal-header {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .prompt {
+      color: #7ee787;
+    }
+
+    .command {
+      color: #79c0ff;
+    }
+
+    .output {
+      color: #8b949e;
+      margin: 10px 0;
+    }
+
+    .success {
+      color: #3fb950;
+    }
+
+    .error {
+      color: #f85149;
+    }
+
+    .dim {
+      color: #484f58;
+    }
+
+    .highlight {
+      color: #ffa657;
+    }
+
+    .cyan {
+      color: #56d4dd;
+    }
+
+    .purple {
+      color: #d2a8ff;
+    }
+
+    .white {
+      color: #ffffff;
+    }
+
+    .flow-diagram {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 30px;
+      margin: 20px 0;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      margin: 20px 0;
+    }
+
+    .step-number {
+      background: #238636;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      color: #58a6ff;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .arrow {
+      color: #30363d;
+      margin-left: 14px;
+      font-size: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .card-title {
+      color: #58a6ff;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .agent-list {
+      list-style: none;
+    }
+
+    .agent-list li {
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .agent-check {
+      color: #3fb950;
+    }
+
+    .agent-x {
+      color: #f85149;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .category-card {
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .category-card:hover {
+      border-color: #58a6ff;
+      background: #161b22;
+    }
+
+    .category-card.selected {
+      border-color: #3fb950;
+      background: #1a2e1a;
+    }
+
+    .category-name {
+      color: #c9d1d9;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .category-count {
+      color: #8b949e;
+      font-size: 12px;
+    }
+
+    .checkbox {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #30363d;
+      border-radius: 3px;
+      margin-right: 10px;
+      position: relative;
+    }
+
+    .checkbox.checked {
+      background: #238636;
+      border-color: #238636;
+    }
+
+    .checkbox.checked::after {
+      content: '✓';
+      color: white;
+      position: absolute;
+      top: -3px;
+      left: 2px;
+      font-size: 12px;
+    }
+
+    .section-divider {
+      border-top: 2px solid #238636;
+      margin: 60px 0 40px 0;
+    }
+
+    .file-tree {
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .file-tree .folder {
+      color: #58a6ff;
+    }
+
+    .file-tree .file {
+      color: #8b949e;
+    }
+
+    .file-tree .symlink {
+      color: #d2a8ff;
+    }
+
+    .progress-bar {
+      background: #21262d;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #238636, #3fb950);
+      height: 100%;
+      border-radius: 4px;
+      animation: progress 2s ease-out forwards;
+    }
+
+    @keyframes progress {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+
+    .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .menu-option {
+      padding: 8px 0;
+      cursor: pointer;
+    }
+
+    .menu-option.selected {
+      color: #58a6ff;
+    }
+
+    .blink {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 30px 0;
+    }
+
+    .step-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #30363d;
+    }
+
+    .step-dot.active {
+      background: #58a6ff;
+    }
+
+    .step-dot.completed {
+      background: #3fb950;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #f093fb, #f5576c, #4facfe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gradient-text-green {
+      background: linear-gradient(90deg, #3fb950, #56d4dd, #58a6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body>
+
+<h1>@orchestra-research/ai-research-skills</h1>
+<h2>Interactive UX Flow - One Command, Guided Experience</h2>
+
+<!-- SECTION 1: Single Entry Point -->
+<h3>Step 1: Run Single Command</h3>
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div>
+    <span class="prompt">$</span> <span class="command">npx @orchestra-research/ai-research-skills</span>
+  </div>
+</div>
+
+<p style="color: #8b949e; margin: 20px 0;">That's it. One command launches the full interactive experience.</p>
+
+<!-- SECTION 2: BIG Orchestra Welcome Screen -->
+<h3>Step 2: Orchestra Welcome Screen</h3>
+<div class="terminal" style="padding: 30px;">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div class="output">
+    <pre>
+  <span style="background: linear-gradient(90deg, #f093fb, #f5576c, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+   █████████  ██████████   █████████  █████   █████ ██████████  █████████  ███████████ ██████████    █████████
+  ███░░░░░███░░███░░░░███ ███░░░░░███░░███   ░░███ ░░███░░░░░█ ███░░░░░███░█░░░███░░░█░░███░░░░███  ███░░░░░███
+ ███     ░░░  ░███   ░░███░███    ░░░  ░███    ░███  ░███  █ ░ ░███    ░░░ ░   ░███  ░  ░███   ░░███░███    ░███
+░███          ░███    ░███░░█████████  ░███████████  ░██████   ░░█████████     ░███     ░███    ░███░███████████
+░███          ░███    ░███ ░░░░░░░░███ ░███░░░░░███  ░███░░█    ░░░░░░░░███    ░███     ░███    ░███░███░░░░░███
+░░███     ███ ░███    ███  ███    ░███ ░███    ░███  ░███ ░   █ ███    ░███    ░███     ░███    ███ ░███    ░███
+ ░░█████████  ██████████  ░░█████████  █████   █████ ██████████░░█████████     █████    ██████████  █████   █████
+  ░░░░░░░░░  ░░░░░░░░░░    ░░░░░░░░░  ░░░░░   ░░░░░ ░░░░░░░░░░  ░░░░░░░░░     ░░░░░    ░░░░░░░░░░  ░░░░░   ░░░░░
+  </span>
+                                    <span class="white">AI Research Skills</span>
+
+  <span class="dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+                         Expert knowledge for AI research engineering
+                            <span class="dim">From model architecture to paper writing</span>
+
+                       <span class="highlight">82 skills</span>  ·  <span class="cyan">20 categories</span>  ·  <span class="success">7 agents</span>
+
+  <span class="dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+                              <span class="spinner">⠋</span> <span class="cyan">Detecting your coding agents...</span>
+    </pre>
+  </div>
+</div>
+
+<div style="text-align: center; margin: 20px 0;">
+  <span class="dim">↓ Auto-detects after 1 second ↓</span>
+</div>
+
+<!-- SECTION 3: Agent Detection Complete -->
+<h3>Step 3: Agent Detection Complete</h3>
+<div class="terminal" style="padding: 30px;">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div class="output">
+    <pre>
+  <span style="background: linear-gradient(90deg, #f093fb, #f5576c, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+   █████████  ██████████   █████████  █████   █████ ██████████  █████████  ███████████ ██████████    █████████
+  ███░░░░░███░░███░░░░███ ███░░░░░███░░███   ░░███ ░░███░░░░░█ ███░░░░░███░█░░░███░░░█░░███░░░░███  ███░░░░░███
+ ███     ░░░  ░███   ░░███░███    ░░░  ░███    ░███  ░███  █ ░ ░███    ░░░ ░   ░███  ░  ░███   ░░███░███    ░███
+░███          ░███    ░███░░█████████  ░███████████  ░██████   ░░█████████     ░███     ░███    ░███░███████████
+░███          ░███    ░███ ░░░░░░░░███ ░███░░░░░███  ░███░░█    ░░░░░░░░███    ░███     ░███    ░███░███░░░░░███
+░░███     ███ ░███    ███  ███    ░███ ░███    ░███  ░███ ░   █ ███    ░███    ░███     ░███    ███ ░███    ░███
+ ░░█████████  ██████████  ░░█████████  █████   █████ ██████████░░█████████     █████    ██████████  █████   █████
+  ░░░░░░░░░  ░░░░░░░░░░    ░░░░░░░░░  ░░░░░   ░░░░░ ░░░░░░░░░░  ░░░░░░░░░     ░░░░░    ░░░░░░░░░░  ░░░░░   ░░░░░
+  </span>
+                                    <span class="white">AI Research Skills</span>
+
+  <span class="dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+  <span class="success">✓ Found 3 coding agents:</span>
+
+      <span class="success">●</span> Claude Code      <span class="dim">~/.claude</span>
+      <span class="success">●</span> Cursor           <span class="dim">~/.cursor</span>
+      <span class="success">●</span> Gemini CLI       <span class="dim">~/.gemini</span>
+
+  <span class="dim">Skills will be installed to all detected agents.</span>
+
+  <span class="dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+                              <span class="cyan">Press Enter to continue...</span><span class="blink">▊</span>
+    </pre>
+  </div>
+</div>
+
+<div style="text-align: center; margin: 20px 0;">
+  <span class="dim">↓ Auto-detects after 1 second ↓</span>
+</div>
+
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div class="output">
+    <pre>
+  <span class="cyan">╔═══════════════════════════════════════════════════════════════╗</span>
+  <span class="cyan">║</span>                                                               <span class="cyan">║</span>
+  <span class="cyan">║</span>   <span class="white">AI Research Skills</span>                                          <span class="cyan">║</span>
+  <span class="cyan">║</span>   <span class="dim">by Orchestra Research</span>                                       <span class="cyan">║</span>
+  <span class="cyan">║</span>                                                               <span class="cyan">║</span>
+  <span class="cyan">╚═══════════════════════════════════════════════════════════════╝</span>
+
+  <span class="success">✓ Found 3 coding agents:</span>
+
+    <span class="success">●</span> Claude Code      <span class="dim">~/.claude</span>
+    <span class="success">●</span> Cursor           <span class="dim">~/.cursor</span>
+    <span class="success">●</span> Gemini CLI       <span class="dim">~/.gemini</span>
+
+  <span class="dim">Skills will be installed to all 3 agents automatically.</span>
+
+  <span class="cyan">Press Enter to continue...</span><span class="blink">▊</span>
+    </pre>
+  </div>
+</div>
+
+<!-- SECTION 4: What to Install -->
+<h3>Step 4: Choose What to Install</h3>
+<div class="step-indicator">
+  <div class="step-dot completed"></div>
+  <div class="step-dot active"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+</div>
+
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div class="output">
+    <pre>
+  <span class="cyan">? What would you like to install?</span> <span class="dim">(Use arrow keys)</span>
+
+    <span class="success">❯</span> <span class="white">Everything</span>                    <span class="dim">All 82 skills (recommended for full setup)</span>
+      <span class="dim">Select categories</span>             <span class="dim">Choose specific skill categories</span>
+      <span class="dim">Select individual skills</span>      <span class="dim">Pick exactly which skills you need</span>
+      <span class="dim">Quick start bundle</span>            <span class="dim">Popular skills for getting started (15 skills)</span>
+    </pre>
+  </div>
+</div>
+
+<!-- SECTION 5: If "Select categories" -->
+<h3>Step 5: Category Selection (if chosen)</h3>
+<div class="step-indicator">
+  <div class="step-dot completed"></div>
+  <div class="step-dot completed"></div>
+  <div class="step-dot active"></div>
+  <div class="step-dot"></div>
+</div>
+
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div class="output">
+    <pre>
+  <span class="cyan">? Select categories to install:</span> <span class="dim">(Space to select, Enter to confirm)</span>
+
+  <span class="success">◉</span> <span class="white">Post-Training</span>              <span class="dim">8 skills</span>   <span class="highlight">RLHF, GRPO, DPO, verl, slime...</span>
+  <span class="success">◉</span> <span class="white">Inference Serving</span>          <span class="dim">4 skills</span>   <span class="highlight">vLLM, TensorRT-LLM, SGLang...</span>
+  <span class="dim">◯</span> Model Architecture          <span class="dim">6 skills</span>   LitGPT, Mamba, TorchTitan...
+  <span class="dim">◯</span> Fine-Tuning                 <span class="dim">5 skills</span>   Axolotl, Unsloth, PEFT...
+  <span class="dim">◯</span> Distributed Training        <span class="dim">6 skills</span>   DeepSpeed, FSDP, Megatron...
+  <span class="dim">◯</span> Optimization                <span class="dim">6 skills</span>   Flash Attention, GPTQ, AWQ...
+  <span class="dim">◯</span> Mechanistic Interpretability<span class="dim">4 skills</span>   TransformerLens, SAELens...
+  <span class="dim">◯</span> Data Processing             <span class="dim">2 skills</span>   NeMo Curator, Ray Data
+  <span class="dim">◯</span> Safety & Alignment          <span class="dim">3 skills</span>   Constitutional AI, LlamaGuard...
+  <span class="dim">◯</span> Infrastructure              <span class="dim">3 skills</span>   Modal, SkyPilot, Lambda Labs
+  <span class="dim">◯</span> Evaluation                  <span class="dim">3 skills</span>   lm-eval-harness, BigCode...
+  <span class="dim">◯</span> MLOps                       <span class="dim">3 skills</span>   W&B, MLflow, TensorBoard
+  <span class="dim">◯</span> Agents                      <span class="dim">4 skills</span>   LangChain, LlamaIndex, CrewAI...
+  <span class="dim">◯</span> RAG                         <span class="dim">5 skills</span>   Chroma, FAISS, Pinecone...
+  <span class="dim">◯</span> Prompt Engineering          <span class="dim">4 skills</span>   DSPy, Instructor, Outlines...
+  <span class="dim">◯</span> Observability               <span class="dim">2 skills</span>   LangSmith, Phoenix
+  <span class="dim">◯</span> Multimodal                  <span class="dim">7 skills</span>   CLIP, Whisper, LLaVA...
+  <span class="dim">◯</span> Emerging Techniques         <span class="dim">6 skills</span>   MoE, Model Merging, Pruning...
+  <span class="dim">◯</span> Tokenization                <span class="dim">2 skills</span>   HuggingFace, SentencePiece
+  <span class="dim">◯</span> ML Paper Writing            <span class="dim">1 skill</span>    NeurIPS/ICML paper writing
+
+  <span class="dim">──────────────────────────────────────────────────────────────</span>
+  <span class="success">2 categories selected</span> <span class="dim">(12 skills)</span>
+
+  <span class="cyan">[Enter]</span> Confirm   <span class="cyan">[Space]</span> Toggle   <span class="cyan">[a]</span> Select all   <span class="cyan">[n]</span> Select none
+    </pre>
+  </div>
+</div>
+
+<!-- SECTION 6: Confirmation -->
+<h3>Step 6: Confirm Installation</h3>
+<div class="step-indicator">
+  <div class="step-dot completed"></div>
+  <div class="step-dot completed"></div>
+  <div class="step-dot completed"></div>
+  <div class="step-dot active"></div>
+</div>
+
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div class="output">
+    <pre>
+  <span class="cyan">╔═══════════════════════════════════════════════════════════════╗</span>
+  <span class="cyan">║</span>  <span class="white">Ready to Install</span>                                             <span class="cyan">║</span>
+  <span class="cyan">╚═══════════════════════════════════════════════════════════════╝</span>
+
+  <span class="highlight">Skills to install:</span>
+    Post-Training (8)        verl, slime, miles, torchforge, grpo...
+    Inference Serving (4)    vllm, tensorrt-llm, sglang, llama-cpp
+
+  <span class="highlight">Target agents:</span>
+    <span class="success">●</span> Claude Code
+    <span class="success">●</span> Cursor
+    <span class="success">●</span> Gemini CLI
+
+  <span class="highlight">Storage:</span>
+    <span class="dim">Skills saved to:</span>     ~/.agents/skills/
+    <span class="dim">Symlinks created in:</span> ~/.claude/skills/, ~/.cursor/skills/, ~/.gemini/skills/
+
+  <span class="dim">──────────────────────────────────────────────────────────────</span>
+
+  <span class="cyan">? Proceed with installation?</span>
+
+    <span class="success">❯</span> <span class="white">Yes, install 12 skills</span>
+      <span class="dim">No, go back</span>
+    </pre>
+  </div>
+</div>
+
+<!-- SECTION 7: Installation Progress -->
+<h3>Step 7: Installation (Animated Progress)</h3>
+
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div class="output">
+    <pre>
+  <span class="cyan">Installing AI Research Skills...</span>
+
+  <span class="dim">Downloading from GitHub...</span>
+
+    <span class="success">✓</span> verl-rl-training          <span class="dim">━━━━━━━━━━</span> 12.1 KB
+    <span class="success">✓</span> slime-rl-training         <span class="dim">━━━━━━━━━━</span> 18.4 KB
+    <span class="success">✓</span> miles-rl-training         <span class="dim">━━━━━━━━━━</span>  9.8 KB
+    <span class="success">✓</span> torchforge-rl-training    <span class="dim">━━━━━━━━━━</span> 11.2 KB
+    <span class="success">✓</span> grpo-rl-training          <span class="dim">━━━━━━━━━━</span> 15.3 KB
+    <span class="success">✓</span> trl-fine-tuning           <span class="dim">━━━━━━━━━━</span>  8.7 KB
+    <span class="success">✓</span> openrlhf                   <span class="dim">━━━━━━━━━━</span>  6.2 KB
+    <span class="success">✓</span> simpo                      <span class="dim">━━━━━━━━━━</span>  4.1 KB
+    <span class="success">✓</span> vllm                       <span class="dim">━━━━━━━━━━</span> 14.5 KB
+    <span class="success">✓</span> tensorrt-llm               <span class="dim">━━━━━━━━━━</span> 11.8 KB
+    <span class="success">✓</span> sglang                     <span class="dim">━━━━━━━━━━</span>  9.3 KB
+    <span class="success">✓</span> llama-cpp                  <span class="dim">━━━━━━━━━━</span>  7.6 KB
+
+  <span class="dim">Creating symlinks...</span>
+
+    <span class="success">✓</span> Claude Code    <span class="dim">→</span> ~/.claude/skills/     <span class="success">12 skills</span>
+    <span class="success">✓</span> Cursor         <span class="dim">→</span> ~/.cursor/skills/     <span class="success">12 skills</span>
+    <span class="success">✓</span> Gemini CLI     <span class="dim">→</span> ~/.gemini/skills/     <span class="success">12 skills</span>
+    </pre>
+  </div>
+</div>
+
+<!-- SECTION 8: Success -->
+<h3>Step 8: Success!</h3>
+
+<div class="terminal" style="padding: 30px;">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+  </div>
+  <div class="output">
+    <pre>
+  <span style="background: linear-gradient(90deg, #3fb950, #56d4dd, #58a6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+   █████████  █████  █████  █████████    █████████  ██████████  █████████   █████████
+  ███░░░░░███░░███  ░░███  ███░░░░░███  ███░░░░░███░░███░░░░░█ ███░░░░░███ ███░░░░░███
+ ░███    ░░░  ░███   ░███ ░███    ░░░  ░███    ░░░  ░███  █ ░ ░███    ░░░ ░███    ░░░
+ ░░█████████  ░███   ░███ ░███         ░███         ░██████   ░░█████████ ░░█████████
+  ░░░░░░░░███ ░███   ░███ ░███         ░███         ░███░░█    ░░░░░░░░███ ░░░░░░░░███
+  ███    ░███ ░███   ░███ ░░███     ███░░███     ███░███ ░   █ ███    ░███ ███    ░███
+ ░░█████████  ░░████████   ░░█████████  ░░█████████ ██████████░░█████████ ░░█████████
+  ░░░░░░░░░    ░░░░░░░░     ░░░░░░░░░    ░░░░░░░░░ ░░░░░░░░░░  ░░░░░░░░░   ░░░░░░░░░
+  </span>
+                               <span class="success">✓ Installation Complete!</span>
+
+  <span class="dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+  Installed <span class="highlight">12 skills</span> to <span class="success">3 agents</span>
+
+  Your skills are ready! They'll automatically activate when relevant.
+
+  <span class="dim">Examples of what you can now do:</span>
+
+      <span class="cyan">●</span> Ask Claude/Cursor about GRPO training
+      <span class="cyan">●</span> Get help setting up vLLM inference
+      <span class="cyan">●</span> Learn verl for large-scale RL
+
+  <span class="dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+  <span class="dim">Manage your skills anytime:</span>
+
+      <span class="command">npx @orchestra-research/ai-research-skills</span>          <span class="dim">Interactive menu</span>
+      <span class="command">npx @orchestra-research/ai-research-skills list</span>     <span class="dim">View installed</span>
+      <span class="command">npx @orchestra-research/ai-research-skills update</span>   <span class="dim">Update skills</span>
+
+  <span class="dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+                 <span class="purple">★ Star us: github.com/orchestra-research/ai-research-skills</span>
+    </pre>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- Alternative Flows -->
+<h3>Alternative: Quick Commands (for power users)</h3>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Install Everything</div>
+    <div class="terminal" style="margin: 10px 0; padding: 15px;">
+      <span class="prompt">$</span> <span class="command">npx @orchestra-research/ai-research-skills install --all</span>
+    </div>
+    <div class="dim" style="font-size: 12px;">Skip interactive, install all 82 skills</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Install Category</div>
+    <div class="terminal" style="margin: 10px 0; padding: 15px;">
+      <span class="prompt">$</span> <span class="command">npx @orchestra-research/ai-research-skills install post-training</span>
+    </div>
+    <div class="dim" style="font-size: 12px;">Install all skills in a category</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Install Single Skill</div>
+    <div class="terminal" style="margin: 10px 0; padding: 15px;">
+      <span class="prompt">$</span> <span class="command">npx @orchestra-research/ai-research-skills install verl</span>
+    </div>
+    <div class="dim" style="font-size: 12px;">Install just one skill</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Specific Agent Only</div>
+    <div class="terminal" style="margin: 10px 0; padding: 15px;">
+      <span class="prompt">$</span> <span class="command">npx @orchestra-research/ai-research-skills install verl --agent claude</span>
+    </div>
+    <div class="dim" style="font-size: 12px;">Install to just one agent</div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- File System -->
+<h3>What Gets Created</h3>
+<div class="flow-diagram">
+  <div class="file-tree">
+    <pre>
+<span class="folder">~/.agents/</span>                              <span class="dim"># Canonical storage (single source)</span>
+├── <span class="file">.lock.json</span>                          <span class="dim"># Tracks versions & installed skills</span>
+└── <span class="folder">skills/</span>
+    ├── <span class="folder">06-post-training/</span>
+    │   ├── <span class="folder">verl/</span>
+    │   │   ├── <span class="file">SKILL.md</span>                <span class="dim"># Main skill instructions</span>
+    │   │   └── <span class="folder">references/</span>             <span class="dim"># Detailed docs</span>
+    │   ├── <span class="folder">slime/</span>
+    │   ├── <span class="folder">miles/</span>
+    │   └── <span class="folder">torchforge/</span>
+    └── <span class="folder">12-inference-serving/</span>
+        ├── <span class="folder">vllm/</span>
+        └── <span class="folder">sglang/</span>
+
+<span class="folder">~/.claude/skills/</span>                        <span class="dim"># Symlinks (not copies)</span>
+├── <span class="symlink">verl</span> <span class="dim">→ ~/.agents/skills/.../verl</span>
+├── <span class="symlink">slime</span> <span class="dim">→ ~/.agents/skills/.../slime</span>
+└── <span class="symlink">vllm</span> <span class="dim">→ ~/.agents/skills/.../vllm</span>
+
+<span class="folder">~/.cursor/skills/</span>                        <span class="dim"># Same symlinks</span>
+└── <span class="dim">(same links)</span>
+
+<span class="folder">~/.gemini/skills/</span>                        <span class="dim"># Same symlinks</span>
+└── <span class="dim">(same links)</span>
+
+<span class="highlight">Benefits:</span>
+  <span class="success">●</span> One copy of each skill, shared by all agents
+  <span class="success">●</span> Update once, all agents get latest version
+  <span class="success">●</span> Minimal disk space usage
+    </pre>
+  </div>
+</div>
+
+<!-- Supported Agents -->
+<h3>Supported Agents (7 Verified)</h3>
+<div class="grid">
+  <div class="card">
+    <ul class="agent-list">
+      <li><span class="agent-check">✓</span> <strong>Claude Code</strong> <span class="dim">~/.claude/skills/</span></li>
+      <li><span class="agent-check">✓</span> <strong>Cursor</strong> <span class="dim">~/.cursor/skills/</span></li>
+      <li><span class="agent-check">✓</span> <strong>Codex (OpenAI)</strong> <span class="dim">~/.codex/skills/</span></li>
+      <li><span class="agent-check">✓</span> <strong>Windsurf</strong> <span class="dim">~/.windsurf/skills/</span></li>
+      <li><span class="agent-check">✓</span> <strong>Gemini CLI</strong> <span class="dim">~/.gemini/skills/</span></li>
+      <li><span class="agent-check">✓</span> <strong>Kilo Code</strong> <span class="dim">~/.kilocode/skills/</span></li>
+      <li><span class="agent-check">✓</span> <strong>Qwen Code</strong> <span class="dim">~/.qwen/skills/</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">All use the same SKILL.md format</div>
+    <div style="font-size: 13px; line-height: 2; margin-top: 10px;">
+      <span class="success">●</span> Auto-detects which agents you have<br>
+      <span class="success">●</span> Installs to all detected agents<br>
+      <span class="success">●</span> Or specify with <span class="command">--agent claude</span><br>
+      <span class="success">●</span> Skills activate when relevant
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div style="text-align: center; color: #8b949e; padding: 20px;">
+  <p style="font-size: 18px;"><span class="cyan">@orchestra-research/ai-research-skills</span></p>
+  <p style="margin-top: 10px;">82 skills | 20 categories | 7 agents</p>
+  <p style="margin-top: 20px; font-size: 14px;">
+    <span class="command">npx @orchestra-research/ai-research-skills</span>
+  </p>
+</div>
+
+</body>
+</html>

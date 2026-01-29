@@ -1,0 +1,391 @@
+import { existsSync, mkdirSync, symlinkSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'fs';
+import { homedir } from 'os';
+import { join, basename, dirname } from 'path';
+import { execSync } from 'child_process';
+import chalk from 'chalk';
+import ora from 'ora';
+
+const REPO_URL = 'https://github.com/zechenzhangAGI/AI-research-SKILLs';
+const CANONICAL_DIR = join(homedir(), '.orchestra', 'skills');
+const LOCK_FILE = join(homedir(), '.orchestra', '.lock.json');
+
+/**
+ * Ensure the canonical skills directory exists
+ */
+function ensureCanonicalDir() {
+  const orchestraDir = join(homedir(), '.orchestra');
+  if (!existsSync(orchestraDir)) {
+    mkdirSync(orchestraDir, { recursive: true });
+  }
+  if (!existsSync(CANONICAL_DIR)) {
+    mkdirSync(CANONICAL_DIR, { recursive: true });
+  }
+}
+
+/**
+ * Read lock file
+ */
+function readLock() {
+  if (existsSync(LOCK_FILE)) {
+    try {
+      return JSON.parse(readFileSync(LOCK_FILE, 'utf8'));
+    } catch {
+      return { version: null, installedAt: null, skills: [] };
+    }
+  }
+  return { version: null, installedAt: null, skills: [] };
+}
+
+/**
+ * Write lock file
+ */
+function writeLock(data) {
+  writeFileSync(LOCK_FILE, JSON.stringify(data, null, 2));
+}
+
+/**
+ * Download skills from GitHub
+ */
+async function downloadSkills(categories, spinner) {
+  ensureCanonicalDir();
+
+  // Clone or update the repository to a temp location
+  const tempDir = join(homedir(), '.orchestra', '.temp-clone');
+
+  try {
+    if (existsSync(tempDir)) {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
+
+    spinner.text = 'Cloning repository...';
+    execSync(`git clone --depth 1 ${REPO_URL}.git ${tempDir}`, {
+      stdio: 'pipe',
+    });
+
+    const skills = [];
+
+    // Copy selected categories
+    for (const categoryId of categories) {
+      const categoryPath = join(tempDir, categoryId);
+      if (!existsSync(categoryPath)) continue;
+
+      const targetCategoryPath = join(CANONICAL_DIR, categoryId);
+      if (!existsSync(targetCategoryPath)) {
+        mkdirSync(targetCategoryPath, { recursive: true });
+      }
+
+      // Check if it's a standalone skill (SKILL.md directly in category)
+      const standaloneSkillPath = join(categoryPath, 'SKILL.md');
+      if (existsSync(standaloneSkillPath)) {
+        // Copy the entire category as a standalone skill
+        spinner.text = `Downloading ${categoryId}...`;
+        execSync(`cp -r "${categoryPath}"/* "${targetCategoryPath}/"`, { stdio: 'pipe' });
+        skills.push({ category: categoryId, skill: categoryId, standalone: true });
+      } else {
+        // It's a nested category with multiple skills
+        const entries = readdirSync(categoryPath, { withFileTypes: true });
+        for (const entry of entries) {
+          if (entry.isDirectory()) {
+            const skillPath = join(categoryPath, entry.name, 'SKILL.md');
+            if (existsSync(skillPath)) {
+              spinner.text = `Downloading ${entry.name}...`;
+              const targetSkillPath = join(targetCategoryPath, entry.name);
+              if (!existsSync(targetSkillPath)) {
+                mkdirSync(targetSkillPath, { recursive: true });
+              }
+              execSync(`cp -r "${join(categoryPath, entry.name)}"/* "${targetSkillPath}/"`, { stdio: 'pipe' });
+              skills.push({ category: categoryId, skill: entry.name, standalone: false });
+            }
+          }
+        }
+      }
+    }
+
+    // Cleanup
+    rmSync(tempDir, { recursive: true, force: true });
+
+    return skills;
+  } catch (error) {
+    if (existsSync(tempDir)) {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
+    throw error;
+  }
+}
+
+/**
+ * Create symlinks for an agent
+ */
+function createSymlinks(agent, skills, spinner) {
+  const agentSkillsPath = agent.skillsPath;
+
+  // Ensure agent skills directory exists
+  if (!existsSync(agentSkillsPath)) {
+    mkdirSync(agentSkillsPath, { recursive: true });
+  }
+
+  let linkedCount = 0;
+
+  for (const skill of skills) {
+    const sourcePath = skill.standalone
+      ? join(CANONICAL_DIR, skill.category)
+      : join(CANONICAL_DIR, skill.category, skill.skill);
+
+    const linkName = skill.standalone ? skill.category : skill.skill;
+    const linkPath = join(agentSkillsPath, linkName);
+
+    // Remove existing symlink if present
+    if (existsSync(linkPath)) {
+      rmSync(linkPath, { recursive: true, force: true });
+    }
+
+    try {
+      symlinkSync(sourcePath, linkPath);
+      linkedCount++;
+    } catch (error) {
+      // Ignore symlink errors (e.g., already exists)
+    }
+  }
+
+  return linkedCount;
+}
+
+/**
+ * Download specific skills from GitHub
+ */
+async function downloadSpecificSkills(skillPaths, spinner) {
+  ensureCanonicalDir();
+
+  // Clone or update the repository to a temp location
+  const tempDir = join(homedir(), '.orchestra', '.temp-clone');
+
+  try {
+    if (existsSync(tempDir)) {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
+
+    spinner.text = 'Cloning repository...';
+    execSync(`git clone --depth 1 ${REPO_URL}.git ${tempDir}`, {
+      stdio: 'pipe',
+    });
+
+    const skills = [];
+
+    // Copy selected skills
+    for (const skillPath of skillPaths) {
+      // skillPath can be like '06-post-training/verl' or '20-ml-paper-writing' (standalone)
+      const parts = skillPath.split('/');
+      const categoryId = parts[0];
+      const skillName = parts[1] || null;
+
+      const targetCategoryPath = join(CANONICAL_DIR, categoryId);
+      if (!existsSync(targetCategoryPath)) {
+        mkdirSync(targetCategoryPath, { recursive: true });
+      }
+
+      if (skillName) {
+        // Nested skill like '06-post-training/verl'
+        const sourcePath = join(tempDir, categoryId, skillName);
+        if (existsSync(sourcePath)) {
+          spinner.text = `Downloading ${skillName}...`;
+          const targetSkillPath = join(targetCategoryPath, skillName);
+          if (!existsSync(targetSkillPath)) {
+            mkdirSync(targetSkillPath, { recursive: true });
+          }
+          execSync(`cp -r "${sourcePath}"/* "${targetSkillPath}/"`, { stdio: 'pipe' });
+          skills.push({ category: categoryId, skill: skillName, standalone: false });
+        }
+      } else {
+        // Standalone skill like '20-ml-paper-writing'
+        const sourcePath = join(tempDir, categoryId);
+        if (existsSync(sourcePath)) {
+          spinner.text = `Downloading ${categoryId}...`;
+          execSync(`cp -r "${sourcePath}"/* "${targetCategoryPath}/"`, { stdio: 'pipe' });
+          skills.push({ category: categoryId, skill: categoryId, standalone: true });
+        }
+      }
+    }
+
+    // Cleanup
+    rmSync(tempDir, { recursive: true, force: true });
+
+    return skills;
+  } catch (error) {
+    if (existsSync(tempDir)) {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
+    throw error;
+  }
+}
+
+/**
+ * Install specific skills to agents
+ */
+export async function installSpecificSkills(skillPaths, agents) {
+  const spinner = ora('Downloading from GitHub...').start();
+
+  try {
+    // Download skills
+    const skills = await downloadSpecificSkills(skillPaths, spinner);
+    spinner.succeed(`Downloaded ${skills.length} skills`);
+
+    // Create symlinks for each agent
+    spinner.start('Creating symlinks...');
+
+    for (const agent of agents) {
+      const count = createSymlinks(agent, skills, spinner);
+      console.log(`    ${chalk.green('✓')} ${agent.name.padEnd(14)} ${chalk.dim('→')} ${agent.skillsPath.replace(homedir(), '~').padEnd(25)} ${chalk.green(count + ' skills')}`);
+    }
+
+    spinner.stop();
+
+    // Update lock file
+    const lock = readLock();
+    lock.version = '1.0.0';
+    lock.installedAt = new Date().toISOString();
+    lock.skills = [...(lock.skills || []), ...skills];
+    lock.agents = agents.map(a => a.id);
+    writeLock(lock);
+
+    return skills.length;
+  } catch (error) {
+    spinner.fail('Installation failed');
+    throw error;
+  }
+}
+
+/**
+ * Install skills to agents
+ */
+export async function installSkills(categories, agents) {
+  const spinner = ora('Downloading from GitHub...').start();
+
+  try {
+    // Download skills
+    const skills = await downloadSkills(categories, spinner);
+    spinner.succeed(`Downloaded ${skills.length} skills`);
+
+    // Create symlinks for each agent
+    spinner.start('Creating symlinks...');
+    const results = [];
+
+    for (const agent of agents) {
+      const count = createSymlinks(agent, skills, spinner);
+      results.push({ agent, count });
+      console.log(`    ${chalk.green('✓')} ${agent.name.padEnd(14)} ${chalk.dim('→')} ${agent.skillsPath.replace(homedir(), '~').padEnd(25)} ${chalk.green(count + ' skills')}`);
+    }
+
+    spinner.stop();
+
+    // Update lock file
+    const lock = readLock();
+    lock.version = '1.0.0';
+    lock.installedAt = new Date().toISOString();
+    lock.skills = skills;
+    lock.agents = agents.map(a => a.id);
+    writeLock(lock);
+
+    return skills.length;
+  } catch (error) {
+    spinner.fail('Installation failed');
+    throw error;
+  }
+}
+
+/**
+ * List installed skills by scanning actual folders
+ */
+export function listInstalledSkills() {
+  // Check if canonical skills directory exists
+  if (!existsSync(CANONICAL_DIR)) {
+    console.log(chalk.yellow('    No skills installed yet.'));
+    console.log();
+    console.log(`    Run ${chalk.cyan('npx @orchestra-research/ai-research-skills')} to install skills.`);
+    return;
+  }
+
+  // Scan the actual skills directory
+  const categories = readdirSync(CANONICAL_DIR, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .map(d => d.name)
+    .sort();
+
+  if (categories.length === 0) {
+    console.log(chalk.yellow('    No skills installed yet.'));
+    console.log();
+    console.log(`    Run ${chalk.cyan('npx @orchestra-research/ai-research-skills')} to install skills.`);
+    return;
+  }
+
+  const byCategory = {};
+  let totalSkills = 0;
+
+  for (const category of categories) {
+    const categoryPath = join(CANONICAL_DIR, category);
+
+    // Check if it's a standalone skill (has SKILL.md directly)
+    const standaloneSkill = join(categoryPath, 'SKILL.md');
+    if (existsSync(standaloneSkill)) {
+      byCategory[category] = [category];
+      totalSkills++;
+    } else {
+      // It's a category with nested skills
+      const skills = readdirSync(categoryPath, { withFileTypes: true })
+        .filter(d => d.isDirectory() && existsSync(join(categoryPath, d.name, 'SKILL.md')))
+        .map(d => d.name)
+        .sort();
+
+      if (skills.length > 0) {
+        byCategory[category] = skills;
+        totalSkills += skills.length;
+      }
+    }
+  }
+
+  console.log(chalk.white.bold(`    Installed Skills (${totalSkills})`));
+  console.log();
+
+  for (const [category, skills] of Object.entries(byCategory)) {
+    console.log(chalk.cyan(`    ${category}`));
+    for (const skill of skills) {
+      if (skill === category) {
+        // Standalone skill
+        console.log(`      ${chalk.dim('●')} ${chalk.white('(standalone)')}`);
+      } else {
+        console.log(`      ${chalk.dim('●')} ${skill}`);
+      }
+    }
+    console.log();
+  }
+
+  // Show storage location
+  console.log(chalk.dim(`    Location: ${CANONICAL_DIR.replace(homedir(), '~')}`));
+}
+
+/**
+ * Get all category IDs
+ */
+export function getAllCategoryIds() {
+  return [
+    '01-model-architecture',
+    '02-tokenization',
+    '03-fine-tuning',
+    '04-mechanistic-interpretability',
+    '05-data-processing',
+    '06-post-training',
+    '07-safety-alignment',
+    '08-distributed-training',
+    '09-infrastructure',
+    '10-optimization',
+    '11-evaluation',
+    '12-inference-serving',
+    '13-mlops',
+    '14-agents',
+    '15-rag',
+    '16-prompt-engineering',
+    '17-observability',
+    '18-multimodal',
+    '19-emerging-techniques',
+    '20-ml-paper-writing',
+  ];
+}
