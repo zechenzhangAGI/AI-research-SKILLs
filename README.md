@@ -10,7 +10,9 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
   <a href="https://www.npmjs.com/package/@orchestra-research/ai-research-skills"><img src="https://img.shields.io/npm/v/@orchestra-research/ai-research-skills.svg" alt="npm version"></a>
   <a href="https://www.orchestra-research.com/perspectives/ai-research-skills"><img src="https://img.shields.io/badge/Blog-Read%20More-orange.svg" alt="Blog Post"></a>
-  <a href="https://www.orchestra-research.com/perspectives/LLM-with-Orchestra"><img src="https://img.shields.io/badge/Demo-LLM%20Fine--Tuning-blue.svg" alt="Demo"></a>
+  <a href="https://join.slack.com/t/orchestrarese-efu1990/shared_invite/zt-3iu6gr8io-zJvpkZTPToEviQ9KFZvNSg"><img src="https://img.shields.io/badge/Slack-Join%20Community-4A154B.svg?logo=slack" alt="Slack"></a>
+  <a href="https://x.com/orch_research"><img src="https://img.shields.io/badge/Twitter-Follow-1DA1F2.svg?logo=x" alt="Twitter"></a>
+  <a href="https://www.linkedin.com/company/orchestra-research/"><img src="https://img.shields.io/badge/LinkedIn-Follow-0A66C2.svg?logo=linkedin" alt="LinkedIn"></a>
 </p>
 
 <div align="center">
@@ -630,6 +632,14 @@ All contributors are featured in our [Contributors Hall of Fame](CONTRIBUTORS.md
 - 🎉 Initial release with 5 fine-tuning skills
 
 </details>
+
+## Community
+
+Join our community to stay updated, ask questions, and connect with other AI researchers:
+
+- **[Slack Community](https://join.slack.com/t/orchestrarese-efu1990/shared_invite/zt-3iu6gr8io-zJvpkZTPToEviQ9KFZvNSg)** - Chat with the team and other users
+- **[Twitter/X](https://x.com/orch_research)** - Follow for updates and announcements
+- **[LinkedIn](https://www.linkedin.com/company/orchestra-research/)** - Connect professionally
 
 ## Star History
 
