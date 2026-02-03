@@ -447,7 +447,7 @@ export async function askSelectAgents(agents) {
       choices: agents.map(agent => ({
         name: `${agent.name.padEnd(14)} ${chalk.dim(agent.path)}`,
         value: agent,
-        checked: true,
+        checked: false,
       })),
       prefix: '   ',
     },
