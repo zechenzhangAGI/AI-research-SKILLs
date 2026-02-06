@@ -62,6 +62,7 @@
       "source": "./",
       "strict": false,
       "skills": [
+        "./05-data-processing/firecrawl",
         "./05-data-processing/nemo-curator",
         "./05-data-processing/ray-data"
       ]
