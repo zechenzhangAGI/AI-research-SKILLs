@@ -17,7 +17,7 @@
 
 <div align="center">
 
-### **82 Skills Powering AI Research in 2026**
+### **83 Skills Powering AI Research in 2026**
 
 </div>
 
@@ -31,7 +31,7 @@
 | **Model Architecture** (5) | **Fine-Tuning** (4) | **Post-Training** (8) |
 | **Distributed Training** (6) | **Optimization** (6) | **Inference** (4) |
 | **Tokenization** (2) | **Data Processing** (2) | **Evaluation** (3) |
-| **Safety & Alignment** (3) | **Agents** (4) | **RAG** (5) |
+| **Safety & Alignment** (4) | **Agents** (4) | **RAG** (5) |
 | **Multimodal** (7) | **Prompt Engineering** (4) | **MLOps** (3) |
 | **Observability** (2) | **Infrastructure** (3) | **Mech Interp** (4) |
 | **Emerging Techniques** (6) | **ML Paper Writing** (1) | |
@@ -71,7 +71,7 @@ Modern AI research requires mastering dozens of specialized tools and frameworks
 AI Researchers spend more time debugging infrastructure than testing hypotheses—slowing the pace of scientific discovery. 
 We provide a comprehensive library of expert-level research engineering skills that enable AI agents to autonomously implement and execute different stages of AI research experiments—from data preparation and model training to evaluation and deployment.
   - Specialized Expertise - Each skill provides deep, production-ready knowledge of a specific framework (Megatron-LM, vLLM, TRL, etc.)
-  - End-to-End Coverage - 82 skills spanning model architecture, tokenization, fine-tuning, mechanistic interpretability, data processing, post-training, distributed training, optimization, evaluation, inference, infrastructure, agents, RAG, multimodal, prompt engineering, MLOps, observability, emerging techniques, and ML paper writing
+  - End-to-End Coverage - 83 skills spanning model architecture, tokenization, fine-tuning, mechanistic interpretability, data processing, post-training, distributed training, optimization, evaluation, inference, infrastructure, agents, RAG, multimodal, prompt engineering, MLOps, observability, emerging techniques, and ML paper writing
   - Research-Grade Quality - Documentation sourced from official repos, real GitHub issues, and battle-tested production workflows
 
 ## Available AI Research Engineering Skills
@@ -126,7 +126,7 @@ Install skill categories directly using the **Claude Code CLI**:
 
 </details>
 
-### All 20 Categories (82 Skills)
+### All 20 Categories (83 Skills)
 
 | Category | Skills | Included |
 |----------|--------|----------|
@@ -136,7 +136,7 @@ Install skill categories directly using the **Claude Code CLI**:
 | Mech Interp | 4 | TransformerLens, SAELens, pyvene, nnsight |
 | Data Processing | 2 | NeMo Curator, Ray Data |
 | Post-Training | 8 | TRL, GRPO, OpenRLHF, SimPO, verl, slime, miles, torchforge |
-| Safety | 3 | Constitutional AI, LlamaGuard, NeMo Guardrails |
+| Safety | 4 | Constitutional AI, LlamaGuard, NeMo Guardrails, Prompt Guard |
 | Distributed | 6 | DeepSpeed, FSDP, Accelerate, Megatron-Core, Lightning, Ray Train |
 | Infrastructure | 3 | Modal, Lambda Labs, SkyPilot |
 | Optimization | 6 | Flash Attention, bitsandbytes, GPTQ, AWQ, HQQ, GGUF |
@@ -188,10 +188,11 @@ Install skill categories directly using the **Claude Code CLI**:
 - **[miles](06-post-training/miles/)** - Enterprise fork of slime with FP8, INT4, speculative RL for MoE training (315 lines + 2 refs)
 - **[torchforge](06-post-training/torchforge/)** - Meta's PyTorch-native RL with Monarch+TorchTitan+vLLM (380 lines + 2 refs)
 
-### 🛡️ Safety & Alignment (3 skills)
+### 🛡️ Safety & Alignment (4 skills)
 - **[Constitutional AI](07-safety-alignment/constitutional-ai/)** - AI-driven self-improvement via principles (282 lines)
 - **[LlamaGuard](07-safety-alignment/llamaguard/)** - Safety classifier for LLM inputs/outputs (329 lines)
 - **[NeMo Guardrails](07-safety-alignment/nemo-guardrails/)** - Programmable guardrails with Colang (289 lines)
+- **[Prompt Guard](07-safety-alignment/prompt-guard/)** - Meta's 86M prompt injection & jailbreak detector, 99%+ TPR, <2ms GPU (313 lines)
 
 ### ⚡ Distributed Training (6 skills)
 - **[Megatron-Core](08-distributed-training/megatron-core/)** - NVIDIA's framework for training 2B-462B param models with 47% MFU on H100 (359 lines + 4 refs)
@@ -275,7 +276,7 @@ Install skill categories directly using the **Claude Code CLI**:
 
 ## Demos
 
-All 82 skills in this repo are automatically synced to [Orchestra Research](https://www.orchestra-research.com/research-skills), where you can add them to your projects with one click and use them with AI research agents.
+All 83 skills in this repo are automatically synced to [Orchestra Research](https://www.orchestra-research.com/research-skills), where you can add them to your projects with one click and use them with AI research agents.
 
 **See skills in action → [demos/](demos/README.md)**
 
@@ -374,7 +375,7 @@ We're building towards 80 comprehensive skills across the full AI research lifec
 
 | Metric | Current | Target |
 |--------|---------|--------|
-| **Skills** | **82** (high-quality, standardized YAML) | 80 ✅ |
+| **Skills** | **83** (high-quality, standardized YAML) | 80 ✅ |
 | **Avg Lines/Skill** | **420 lines** (focused + progressive disclosure) | 200-600 lines |
 | **Documentation** | **~130,000 lines** total (SKILL.md + references) | 100,000+ lines |
 | **Gold Standard Skills** | **65** with comprehensive references | 50+ |
@@ -403,7 +404,7 @@ claude-ai-research-skills/
 ├── 04-mechanistic-interpretability/ (4 skills ✓ - TransformerLens, SAELens, pyvene, nnsight)
 ├── 05-data-processing/          (2 skills ✓ - Ray Data, NeMo Curator)
 ├── 06-post-training/            (8 skills ✓ - TRL, GRPO, OpenRLHF, SimPO, verl, slime, miles, torchforge)
-├── 07-safety-alignment/         (3 skills ✓ - Constitutional AI, LlamaGuard, NeMo Guardrails)
+├── 07-safety-alignment/         (4 skills ✓ - Constitutional AI, LlamaGuard, NeMo Guardrails, Prompt Guard)
 ├── 08-distributed-training/     (6 skills ✓ - Megatron-Core, DeepSpeed, FSDP, Accelerate, Lightning, Ray Train)
 ├── 09-infrastructure/           (3 skills ✓ - Modal, SkyPilot, Lambda Labs)
 ├── 10-optimization/             (6 skills ✓ - Flash Attention, bitsandbytes, GPTQ, AWQ, HQQ, GGUF)
@@ -471,6 +472,16 @@ All contributors are featured in our [Contributors Hall of Fame](CONTRIBUTORS.md
 ## Recent Updates
 
 <details open>
+<summary><b>February 2026 - v0.15.0 🛡️ Prompt Guard & 83 Skills</b></summary>
+
+- 🛡️ **NEW SKILL**: Prompt Guard - Meta's 86M prompt injection & jailbreak detector
+- ⚡ 99%+ TPR, <1% FPR, <2ms GPU latency, multilingual (8 languages)
+- 🔒 3 workflows: user input filtering, third-party data filtering, batch RAG processing
+- 📊 **83 total skills** across 20 categories
+
+</details>
+
+<details>
 <summary><b>January 2026 - v0.14.0 📦 npm Package & 82 Skills</b></summary>
 
 - 📦 **NEW**: `npx @orchestra-research/ai-research-skills` - One-command installation for all coding agents

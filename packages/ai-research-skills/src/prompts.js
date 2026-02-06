@@ -11,7 +11,7 @@ export const CATEGORIES = [
   { id: '04-mechanistic-interpretability', name: 'Mechanistic Interp.', skills: 4, examples: 'TransformerLens, SAELens, NNsight' },
   { id: '05-data-processing', name: 'Data Processing', skills: 2, examples: 'NeMo Curator, Ray Data' },
   { id: '06-post-training', name: 'Post-Training', skills: 8, examples: 'GRPO, verl, slime, miles, torchforge' },
-  { id: '07-safety-alignment', name: 'Safety & Alignment', skills: 3, examples: 'Constitutional AI, LlamaGuard' },
+  { id: '07-safety-alignment', name: 'Safety & Alignment', skills: 4, examples: 'Constitutional AI, LlamaGuard, Prompt Guard' },
   { id: '08-distributed-training', name: 'Distributed Training', skills: 6, examples: 'DeepSpeed, FSDP, Megatron, Accelerate' },
   { id: '09-infrastructure', name: 'Infrastructure', skills: 3, examples: 'Modal, SkyPilot, Lambda Labs' },
   { id: '10-optimization', name: 'Optimization', skills: 6, examples: 'Flash Attention, GPTQ, AWQ, bitsandbytes' },

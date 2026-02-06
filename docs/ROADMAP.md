@@ -60,13 +60,14 @@ Build the most comprehensive open-source library of AI research skills, enabling
 - ✅ **OpenRLHF** - Full RLHF pipeline with Ray + vLLM
 - ✅ **SimPO** - Simple Preference Optimization
 
-### ✅ Phase 6: Safety & Alignment (COMPLETE - 3 skills)
+### ✅ Phase 6: Safety & Alignment (COMPLETE - 4 skills)
 **Status**: Core safety frameworks covered
 
 **Completed Skills**:
 - ✅ **Constitutional AI** - AI-driven self-improvement via principles
 - ✅ **LlamaGuard** - Safety classifier for LLM inputs/outputs
 - ✅ **NeMo Guardrails** - Programmable guardrails with Colang
+- ✅ **Prompt Guard** - Meta's 86M prompt injection & jailbreak detector
 
 ### ✅ Phase 7: Distributed Training (COMPLETE - 5 skills)
 **Status**: Major distributed training frameworks covered

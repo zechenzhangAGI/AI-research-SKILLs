@@ -20,7 +20,7 @@ Skills are organized into numbered categories representing the AI research lifec
 - `04-mechanistic-interpretability/` - Interpretability tools (4 skills: TransformerLens, SAELens, NNsight, Pyvene)
 - `05-data-processing/` - Data curation (2 skills: Ray Data, NeMo Curator)
 - `06-post-training/` - RLHF/DPO/GRPO (4 skills: TRL, GRPO, OpenRLHF, SimPO)
-- `07-safety-alignment/` - Safety and guardrails (3 skills: Constitutional AI, LlamaGuard, NeMo Guardrails)
+- `07-safety-alignment/` - Safety and guardrails (4 skills: Constitutional AI, LlamaGuard, NeMo Guardrails, Prompt Guard)
 - `08-distributed-training/` - Distributed systems (5 skills: DeepSpeed, FSDP, Accelerate, PyTorch Lightning, Ray Train)
 - `09-infrastructure/` - Cloud compute (3 skills: Modal, SkyPilot, Lambda Labs)
 - `10-optimization/` - Optimization techniques (6 skills: Flash Attention, bitsandbytes, GPTQ, AWQ, GGUF, Quanto)

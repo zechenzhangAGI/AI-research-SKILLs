@@ -133,7 +133,7 @@ When running `npx @orchestra-research/skills install --interactive`:
 
 ```
 ? What would you like to install?
-  ○ All skills (82 skills)
+  ○ All skills (83 skills)
   ○ Select by category
   ○ Select individual skills
 
