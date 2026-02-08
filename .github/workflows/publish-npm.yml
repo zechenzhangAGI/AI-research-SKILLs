@@ -65,6 +65,7 @@ jobs:
         run: |
           echo "Publishing v${{ steps.version.outputs.version }} to npm..."
           unset NODE_AUTH_TOKEN
+          npm config delete //registry.npmjs.org/:_authToken || true
           npm publish --access public --provenance
 
       - name: Skip reason
