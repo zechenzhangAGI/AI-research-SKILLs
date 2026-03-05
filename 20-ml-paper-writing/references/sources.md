@@ -76,8 +76,37 @@ This document lists all authoritative sources used to build this skill, organize
 ### COLM
 
 | Document | URL | Purpose |
-|----------|-----|---------|
+|----------|-----|--------|
 | Template | [GitHub](https://github.com/COLM-org/Template) | LaTeX templates |
+
+### OSDI (USENIX)
+
+| Document | URL | Purpose |
+|----------|-----|--------|
+| OSDI '26 Call for Papers | [USENIX](https://www.usenix.org/conference/osdi26/call-for-papers) | Submission requirements, deadlines, tracks |
+| OSDI '26 CFP PDF | [PDF](https://www.usenix.org/sites/default/files/osdi26_cfp_121525.pdf) | Downloadable CFP |
+| USENIX Paper Templates | [USENIX](https://www.usenix.org/conferences/author-resources/paper-templates) | LaTeX/Word templates |
+
+### NSDI (USENIX)
+
+| Document | URL | Purpose |
+|----------|-----|--------|
+| NSDI '27 Call for Papers | [USENIX](https://www.usenix.org/conference/nsdi27/call-for-papers) | Submission requirements, tracks, prescreening |
+| NSDI '27 CFP PDF | [PDF](https://www.usenix.org/sites/default/files/nsdi27_cfp_020326.pdf) | Downloadable CFP |
+
+### ASPLOS (ACM)
+
+| Document | URL | Purpose |
+|----------|-----|--------|
+| ASPLOS '27 Call for Papers | [ASPLOS](https://www.asplos-conference.org/asplos2026/call-for-papers-asplos27/) | Submission requirements, rapid review, deadlines |
+| ACM Proceedings Template | [ACM](https://www.acm.org/publications/proceedings-template) | `acmart.cls` template |
+
+### SOSP (ACM)
+
+| Document | URL | Purpose |
+|----------|-----|--------|
+| SOSP '26 Call for Papers | [SOSP](https://sigops.org/s/conferences/sosp/2026/cfp.html) | Submission requirements, artifact evaluation |
+| ACM SIGPLAN Template | [ACM](https://www.acm.org/publications/proceedings-template) | `acmart.cls` with `sigplan` option |
 
 ---
 
@@ -150,7 +179,8 @@ This document lists all authoritative sources used to build this skill, organize
 → Start with: Zachary Lipton, Jacob Steinhardt
 
 ### For Conference-Specific Requirements
-→ Start with: Official venue guidelines (NeurIPS, ICML, ICLR, ACL)
+→ ML/AI: Start with official venue guidelines (NeurIPS, ICML, ICLR, ACL)
+→ Systems: Start with official CFP pages (OSDI, NSDI, ASPLOS, SOSP)
 
 ### For Citation Management
 → Start with: Semantic Scholar API, CrossRef, citation-workflow.md

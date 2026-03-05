@@ -3,6 +3,20 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.blg
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
 .Python
 build/
 develop-eggs/

@@ -1,8 +1,8 @@
-# LaTeX Templates for ML/AI Conferences
+# LaTeX Templates for ML/AI & Systems Conferences
+# ML/AI LaTeX 
 
-This directory contains official LaTeX templates for major machine learning and AI conferences.
-
----
+This directory contains official LaTeX templates for major machine learning, AI, and systems conferences.
+AI LaTeX 
 
 ## Compiling LaTeX to PDF
 
@@ -101,9 +101,9 @@ tlmgr install <package-name>
 # Or install full distribution to avoid this
 ```
 
----
-
 ## Available Templates
+
+### ML/AI Conferences / ML/AI 
 
 | Conference | Directory | Year | Source |
 |------------|-----------|------|--------|
@@ -113,6 +113,15 @@ tlmgr install <package-name>
 | ACL | `acl/` | 2025+ | [Official ACL](https://github.com/acl-org/acl-style-files) |
 | AAAI | `aaai2026/` | 2026 | [AAAI Author Kit](https://aaai.org/authorkit26/) |
 | COLM | `colm2025/` | 2025 | [Official COLM](https://github.com/COLM-org/Template) |
+
+### Systems Conferences
+
+| Conference | Directory | Year | Template Type | Source |
+|------------|-----------|------|---------------|--------|
+| OSDI | `osdi2026/` | 2026 | USENIX | [OSDI '26 CFP](https://www.usenix.org/conference/osdi26/call-for-papers) |
+| NSDI | `nsdi2027/` | 2027 | USENIX | [NSDI '27 CFP](https://www.usenix.org/conference/nsdi27/call-for-papers) |
+| ASPLOS | `asplos2027/` | 2027 | ACM SIGPLAN | [ASPLOS '27 CFP](https://www.asplos-conference.org/asplos2026/call-for-papers-asplos27/) |
+| SOSP | `sosp2026/` | 2026 | ACM SIGPLAN | [SOSP '26 CFP](https://sigops.org/s/conferences/sosp/2026/cfp.html) |
 
 ## Usage
 
@@ -199,7 +208,138 @@ Key files:
 - `colm2025_conference.sty` - Style file
 - `colm2025_conference.bst` - Bibliography style
 
+### OSDI 2026 / NSDI 2027 (USENIX Format / USENIX )
+
+OSDI and NSDI both use the USENIX LaTeX style. The format requires 12 pages max (excluding references), two-column, 10pt on 12pt leading, Times Roman font.
+
+OSDI NSDI USENIX LaTeX 12 10pt Times Roman
+
+```latex
+\documentclass[letterpaper,twocolumn,10pt]{article}
+\usepackage{usenix-2020-09}  % USENIX style file
+
+\begin{document}
+\title{Your Paper Title}
+
+\author{Paper \#XXX}  % Anonymized for submission
+
+\maketitle
+
+\begin{abstract}
+Your abstract here.
+\end{abstract}
+
+% Your paper content
+
+{\footnotesize \bibliographystyle{acm}
+\bibliography{references}}
+
+\end{document}
+```
+
+Key files:
+- `usenix-2020-09.sty` - USENIX style file
+- `main.tex` - Example document
+
+**OSDI 2026 Specific / OSDI 2026 :**
+- Submission: ≤12 pages; Camera-ready: ≤14 pages
+- Two tracks: Research and Operational Systems
+- Operational Systems track: title must end with "(Operational Systems)"
+- Max 8 submissions per author
+
+**NSDI 2027 Specific / NSDI 2027 :**
+- Same USENIX format, ≤12 pages
+- Three tracks: Research, Frontiers, Operational Systems
+- Prescreening based on Introduction
+- Spring and Fall deadlines
+
+### ASPLOS 2027 (ACM SIGPLAN Format / ACM SIGPLAN )
+
+ASPLOS uses the ACM `acmart` document class with `sigplan` option. 12 pages max (excluding references), two-column, 10pt.
+
+ASPLOS ACM `acmart` `sigplan` 12 10pt
+
+```latex
+\documentclass[sigplan,10pt]{acmart}
+
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\settopmatter{printfolios=true}
+
+\begin{document}
+\title{Your Paper Title}
+
+\author{Paper \#XXX}  % Anonymized for submission
+\affiliation{}
+
+\begin{abstract}
+Your abstract here.
+\end{abstract}
+
+\maketitle
+\pagestyle{plain}
+
+% Your paper content
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}
+```
+
+Key files:
+- `acmart.cls` - ACM document class (download from [ACM](https://www.acm.org/publications/proceedings-template))
+- `ACM-Reference-Format.bst` - Bibliography style
+- `main.tex` - Example document
+
+**ASPLOS 2027 Specific / ASPLOS 2027 :**
+- Rapid review round: reviewers only read first 2 pages
+- **First 2 pages must be self-contained** / ** 2 **
+- Two cycles: April and September
+- Max 4 submissions per author per cycle
+- Major Revision decision available
+
+### SOSP 2026 (ACM SIGPLAN Format / ACM SIGPLAN )
+
+SOSP uses the same ACM SIGPLAN format as ASPLOS. 12 pages max, A4 or US letter, 178×229mm text block.
+
+SOSP ASPLOS ACM SIGPLAN 12 A4 US letter178×229mm 
+
+```latex
+\documentclass[sigplan,10pt]{acmart}
+
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\settopmatter{printfolios=true}
+
+\begin{document}
+\title{Your Paper Title}
+
+\author{Paper \#XXX}  % Anonymized
+\affiliation{}
+
+\begin{abstract}
+Your abstract here.
+\end{abstract}
+
+\maketitle
+\pagestyle{plain}
+
+% Your paper content
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}
+```
+
+**SOSP 2026 Specific / SOSP 2026 :**
+- Optional Artifact Evaluation
+- Author response period
+- Supplementary material allowed (not required to read)
+- Anonymized system name required
+
 ## Page Limits Summary
+
+### ML/AI Conferences / ML/AI 
 
 | Conference | Submission | Camera-Ready | Notes |
 |------------|-----------|--------------|-------|
@@ -209,6 +349,15 @@ Key files:
 | ACL 2025 | 8 pages (long) | varies | +unlimited refs/appendix |
 | AAAI 2026 | 7 pages | 8 pages | +unlimited refs/appendix |
 | COLM 2025 | 9 pages | 10 pages | +unlimited refs/appendix |
+
+### Systems Conferences
+
+| Conference | Submission | Camera-Ready | Format | Notes |
+|------------|-----------|--------------|--------|-------|
+| OSDI 2026 | 12 pages | 14 pages | USENIX (8.5×11", 10pt, two-col) | +unlimited refs; encourages concise papers  |
+| NSDI 2027 | 12 pages | varies | USENIX (same as OSDI) | +unlimited refs/appendix |
+| ASPLOS 2027 | 12 pages | varies | ACM SIGPLAN (10pt, two-col) | +unlimited refs |
+| SOSP 2026 | 12 pages | varies | ACM SIGPLAN (10pt, two-col, 7×9" block) | +unlimited refs; supplementary allowed |
 
 ## Common Issues
 
@@ -242,10 +391,18 @@ For submission, ensure:
 ## Updating Templates
 
 Templates are updated annually. Check official sources before each submission:
-
+**ML/AI:**
 - ICML: https://icml.cc/
 - ICLR: https://iclr.cc/
 - NeurIPS: https://neurips.cc/
 - ACL: https://github.com/acl-org/acl-style-files
 - AAAI: https://aaai.org/
 - COLM: https://colmweb.org/
+
+**Systems
+- OSDI: https://www.usenix.org/conference/osdi26/call-for-papers
+- NSDI: https://www.usenix.org/conference/nsdi27/call-for-papers
+- ASPLOS: https://www.asplos-conference.org/asplos2026/call-for-papers-asplos27/
+- SOSP: https://sigops.org/s/conferences/sosp/2026/cfp.html
+- USENIX Templates: https://www.usenix.org/conferences/author-resources/paper-templates
+- ACM Templates: https://www.acm.org/publications/proceedings-template

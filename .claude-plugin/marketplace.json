@@ -245,7 +245,7 @@
     },
     {
       "name": "ml-paper-writing",
-      "description": "Write publication-ready ML/AI papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM. Includes LaTeX templates, citation verification, reviewer guidelines, and writing best practices from top researchers.",
+      "description": "Write publication-ready ML/AI/Systems papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM, OSDI, NSDI, ASPLOS, SOSP. Includes LaTeX templates, citation verification, reviewer guidelines, and writing best practices.",
       "source": "./",
       "strict": false,
       "skills": [
