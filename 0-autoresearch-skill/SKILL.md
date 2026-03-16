@@ -252,7 +252,7 @@ This fires every 10 minutes regardless of what's happening. It's a rhythm that k
 
 ### OpenClaw
 
-**First action — set up a 10-minute cron job immediately** with the same prompt: continue autoresearch, read state files, re-read the autoresearch SKILL.md occasionally to stay aligned, check for errors, keep working. If there's meaningful progress, generate a PDF report and send it to the user. OpenClaw handles cron job setup internally.
+**First action — set up a 10-minute cron job immediately** with this prompt: Continue autoresearch. Read research-state.yaml and findings.md. Re-read the autoresearch SKILL.md occasionally to stay aligned. Check: is the current experiment done? Are there errors? Is progress stalling? If everything is on track, keep working. If something is wrong, step back and fix it. Update findings.md, research-log.md, and research-state.yaml when there's new progress. If there's meaningful progress to show, generate a PDF presentation and send it to the user. When you get an exciting result or interesting plot, text it to the user right away — don't wait for a full report. Never idle. OpenClaw handles cron job setup internally.
 
 ### What the Loop Does
 
@@ -365,7 +365,7 @@ Don't keep trying random changes. Step back: search literature for related work,
 Investigate, don't ignore. Return to literature — your protocol might have an error, the published baseline may be wrong, or conditions differ. Update findings.md with what you learn.
 
 **Agent loses context between ticks**
-Ensure research-state.yaml is updated after every action. For OpenClaw: ensure HEARTBEAT.md has specific next-action instructions. For Claude Code: research-state.yaml is your memory.
+Ensure research-state.yaml and findings.md are updated after every action. These files are your memory across sessions.
 
 **Can't find relevant papers**
 Try multiple approaches in order: Exa MCP for broad search, Semantic Scholar for specific ML/AI paper lookup (`pip install semanticscholar`), arXiv for preprints (`pip install arxiv`). Check `20-ml-paper-writing` skill's `references/citation-workflow.md` for complete API code. Note: Google Scholar has no official API — use Semantic Scholar instead for programmatic search.
