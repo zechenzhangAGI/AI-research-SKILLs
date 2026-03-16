@@ -12,16 +12,18 @@ npx @orchestra-research/ai-research-skills install --all
 
 This auto-detects your coding agent (Claude Code, OpenClaw, Cursor, etc.) and installs 86 skills across 22 categories.
 
+**Important**: After installation completes, you may need to restart your agent session for the newly installed skills to be loaded and available. If skills aren't recognized after install, restart and come back to Step 2.
+
 ## Step 2: Start Researching
 
-Load the **autoresearch** skill — it orchestrates the entire research workflow and routes to all other skills as needed:
+Now that skills are installed, load the **autoresearch** skill — it orchestrates the entire research workflow and routes to all other skills as needed:
 
 ```
-Read 0-autoresearch-skill/SKILL.md and follow its instructions.
+Read the autoresearch SKILL.md and follow its instructions to begin.
 ```
 
 Autoresearch will:
-- Set up continuous operation (/loop or cron job)
+- Set up continuous operation (/loop or cron job) — **mandatory first action**
 - Bootstrap your research question with literature search
 - Run experiments using domain-specific skills (training, eval, interpretability, etc.)
 - Synthesize results and track progress
@@ -32,4 +34,4 @@ You don't need to know all 86 skills upfront. Autoresearch finds and invokes the
 
 ## That's It
 
-Install → load autoresearch → go. Everything else is progressive disclosure — skills teach what you need, when you need it.
+Install → restart if needed → load autoresearch → go. Everything else is progressive disclosure — skills teach what you need, when you need it.
