@@ -1,6 +1,6 @@
 # SwanLab Framework Integrations
 
-This document focuses on framework patterns that align with SwanLab `0.7.11`.
+This document focuses on framework patterns that align with the public SwanLab docs.
 
 ## PyTorch
 
@@ -86,11 +86,54 @@ class SwanLabTracker:
         self.run.finish()
 ```
 
-This wrapper deliberately omits fake histogram and file helpers that are not present in SwanLab `0.7.11`.
+This wrapper deliberately omits fake histogram and file helpers that are not present in current SwanLab APIs.
 
 ## Transformers
 
-Use `swanlab.integration.transformers` rather than the deprecated HuggingFace alias module.
+### `transformers>=4.50.0`: official one-line integration
+
+Prefer `report_to="swanlab"` on recent Transformers releases. This is the primary path documented by SwanLab.
+
+```python
+from transformers import (
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
+    Trainer,
+    TrainingArguments,
+)
+
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+model = AutoModelForSequenceClassification.from_pretrained(
+    "bert-base-uncased",
+    num_labels=2,
+)
+
+training_args = TrainingArguments(
+    output_dir="./results",
+    num_train_epochs=3,
+    per_device_train_batch_size=16,
+    per_device_eval_batch_size=16,
+    evaluation_strategy="epoch",
+    logging_steps=100,
+    report_to="swanlab",
+    run_name="bert-imdb",
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_dataset,
+    eval_dataset=eval_dataset,
+)
+
+trainer.train()
+```
+
+Set `SWANLAB_PROJ_NAME` and `SWANLAB_WORKSPACE` environment variables when you need custom routing without switching away from the official integration path.
+
+### `transformers<4.50.0` or custom control: `SwanLabCallback`
+
+Use `SwanLabCallback` as the fallback path for older Transformers versions, or when you want SwanLab-specific control without `report_to="swanlab"`.
 
 ```python
 from transformers import (
@@ -109,11 +152,9 @@ model = AutoModelForSequenceClassification.from_pretrained(
 
 training_args = TrainingArguments(
     output_dir="./results",
-    num_train_epochs=3,
-    per_device_train_batch_size=16,
-    per_device_eval_batch_size=16,
     evaluation_strategy="epoch",
     logging_steps=100,
+    report_to="none",
 )
 
 trainer = Trainer(
@@ -130,47 +171,6 @@ trainer = Trainer(
                 "batch_size": 16,
                 "epochs": 3,
             },
-        )
-    ],
-)
-
-trainer.train()
-```
-
-### Question Answering
-
-```python
-from transformers import (
-    AutoModelForQuestionAnswering,
-    AutoTokenizer,
-    DefaultDataCollator,
-    Trainer,
-    TrainingArguments,
-)
-from swanlab.integration.transformers import SwanLabCallback
-
-model = AutoModelForQuestionAnswering.from_pretrained("bert-base-uncased")
-tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-
-training_args = TrainingArguments(
-    output_dir="./qa-results",
-    evaluation_strategy="epoch",
-    learning_rate=2e-5,
-    per_device_train_batch_size=12,
-    num_train_epochs=2,
-)
-
-trainer = Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=train_dataset,
-    eval_dataset=eval_dataset,
-    data_collator=DefaultDataCollator(),
-    callbacks=[
-        SwanLabCallback(
-            project="question-answering",
-            experiment_name="bert-squad",
-            config={"model": "bert-base-uncased", "epochs": 2},
         )
     ],
 )
@@ -301,4 +301,4 @@ learn.fit_one_cycle(
 2. Use stable metric names such as `train/loss` and `val/accuracy` across runs.
 3. Save checkpoints locally with your framework and log the checkpoint path or score separately.
 4. Prefer `run.finish()` when you manage the run yourself; let framework integrations finalize runs when they own the lifecycle.
-5. Use `mode="local"` plus `swanlab watch ./swanlog` when you want an offline-first workflow.
+5. Use `mode="local"` plus `swanlab watch -l ./swanlog` when you want an offline-first workflow.

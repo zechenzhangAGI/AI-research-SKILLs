@@ -1,6 +1,6 @@
 # SwanLab Visualization Guide
 
-This guide covers chart objects and validated media types in SwanLab `0.7.11`.
+This guide covers chart objects and validated media types in the public SwanLab docs.
 
 ## Chart Objects with `swanlab.echarts`
 
@@ -104,7 +104,7 @@ swanlab.log(
 )
 ```
 
-`swanlab.Image` does not support inline box metadata in `0.7.11`. For detection tasks, draw overlays yourself before logging the image.
+`swanlab.Image` does not support inline box metadata in current SwanLab releases. For detection tasks, draw overlays yourself before logging the image.
 
 ## Audio Logging
 
@@ -131,7 +131,7 @@ swanlab.log(
 
 ## GIF Video Logging
 
-SwanLab `0.7.11` only accepts GIF paths for `swanlab.Video`.
+Current SwanLab releases only accept GIF paths for `swanlab.Video`.
 
 ```python
 import swanlab
@@ -175,26 +175,19 @@ points = np.random.rand(256, 3).astype("float32")
 swanlab.log({"object3d/points": swanlab.Object3D(points, caption="Random point cloud")})
 ```
 
-### GLB Meshes
-
-```python
-import swanlab
-
-swanlab.log({"object3d/mesh": swanlab.Object3D("mesh.glb", caption="GLB mesh")})
-```
-
-`Object3D` does not accept `.obj` or `.ply` paths directly in `0.7.11`.
+This guide intentionally sticks to numpy point clouds for `Object3D`. File-based constructors may exist in some package versions, but they are not the default public API path used in this skill. `Object3D` also does not accept `.obj` or `.ply` paths directly.
 
 ## Molecules
 
-Use the helper constructors instead of passing SDF or SMILES strings directly to `swanlab.Molecule(...)`.
+Use the documented helper constructor instead of passing raw strings directly to `swanlab.Molecule(...)`.
 
 ```python
 import swanlab
 
 swanlab.log({"molecule/smiles": swanlab.Molecule.from_smiles("CCO", caption="Ethanol")})
-swanlab.log({"molecule/sdf": swanlab.Molecule.from_sdf_file("ligand.sdf", caption="Ligand")})
 ```
+
+Some package versions expose additional molecule file helpers, but this guide does not rely on them because the public API page does not make them the default path.
 
 ## Experiment Comparison
 
