@@ -1,16 +1,16 @@
 ---
 name: evaluating-cosmos-policy
-description: Evaluates and benchmarks NVIDIA Cosmos Policy on LIBERO and RoboCasa simulation environments. Use when setting up cosmos-policy for robot manipulation evaluation, running headless GPU evaluations with EGL rendering, comparing KV cache settings, or profiling inference latency on cluster or local GPU machines.
+description: Evaluates NVIDIA Cosmos Policy on LIBERO and RoboCasa simulation environments. Use when setting up cosmos-policy for robot manipulation evaluation, running headless GPU evaluations with EGL rendering, or profiling inference latency on cluster or local GPU machines.
 version: 1.0.0
 author: Orchestra Research
 license: MIT
-tags: [Cosmos Policy, VLA, Robotics, LIBERO, RoboCasa, Simulation, Evaluation, Benchmarking, KV Cache, EGL Rendering]
+tags: [Cosmos Policy, VLA, Robotics, LIBERO, RoboCasa, Simulation, Evaluation, Profiling, EGL Rendering]
 dependencies: [torch>=2.1.0, mujoco>=3.0.0, robosuite>=1.4.0, robocasa>=0.2.0, transformers>=4.40.0, "cosmos-policy @ git+https://github.com/NVlabs/cosmos-policy.git"]
 ---
 
 # Cosmos Policy Evaluation
 
-Evaluation and benchmarking workflows for NVIDIA Cosmos Policy on LIBERO and RoboCasa simulation environments. Covers setup, headless GPU evaluation, inference profiling, and cross-attention KV cache A/B comparison.
+Evaluation workflows for NVIDIA Cosmos Policy on LIBERO and RoboCasa simulation environments. Covers setup, headless GPU evaluation, inference profiling, and how to map old repo-local wrappers back to the public upstream commands.
 
 ## Quick start
 
@@ -50,7 +50,7 @@ uv run --extra cu128 --group libero --python 3.10 \
 
 ## Core concepts
 
-**What Cosmos Policy is**: NVIDIA Cosmos Policy is a vision-language-action (VLA) model that uses Cosmos Tokenizer to encode visual observations into discrete tokens, then predicts robot actions conditioned on language instructions and visual context. It supports cross-attention KV caching for faster autoregressive inference.
+**What Cosmos Policy is**: NVIDIA Cosmos Policy is a vision-language-action (VLA) model that uses Cosmos Tokenizer to encode visual observations into discrete tokens, then predicts robot actions conditioned on language instructions and visual context.
 
 **Key architecture choices**:
 
@@ -59,9 +59,8 @@ uv run --extra cu128 --group libero --python 3.10 \
 | Visual encoder | Cosmos Tokenizer (discrete tokens) |
 | Language conditioning | Cross-attention to language embeddings |
 | Action prediction | Autoregressive action token generation |
-| KV cache | Optional cross-attention cache for inference speedup |
 
-**Cross-attention KV cache**: The underlying model architecture uses cross-attention and related caching optimizations, but the public eval CLI does not currently expose a stable one-flag KV cache toggle. If you need cache A/B experiments, treat them as repo-specific automation rather than assuming a portable upstream command.
+**Wrapper boundary**: The public repo exposes evaluation entrypoints such as `cosmos_policy.experiments.robot.libero.run_libero_eval` and `cosmos_policy.experiments.robot.robocasa.run_robocasa_eval`. If your original research repo used helper wrappers, those wrappers were repo-local orchestration around these public commands rather than a separate upstream API surface.
 
 ## Compute requirements
 
@@ -71,14 +70,12 @@ uv run --extra cu128 --group libero --python 3.10 \
 | LIBERO full eval (50 trials) | 1x A40/A100 | ~16 GB | 2-4 hours |
 | RoboCasa single-task (2 trials) | 1x A40/A100 | ~18 GB | 10-15 min |
 | RoboCasa all-tasks | 1x A40/A100 | ~18 GB | 4-8 hours |
-| KV cache A/B benchmark | 1x A40/A100 | ~20 GB | 30-60 min |
 
 ## When to use vs alternatives
 
 **Use this skill when:**
 - Evaluating NVIDIA Cosmos Policy on LIBERO or RoboCasa benchmarks
 - Profiling inference latency and throughput for Cosmos Policy
-- Running A/B comparisons of cross-attention KV cache configurations
 - Setting up headless EGL rendering for robot simulation on GPU clusters
 
 **Use alternatives when:**
@@ -276,31 +273,34 @@ Increase `--num_trials_per_task` or add more tasks. Keep `--obj_instance_split` 
 
 ---
 
-## Workflow 3: Benchmarking note
+## Workflow 3: Reconstructing local wrappers
 
-Use this workflow to avoid inventing a public benchmark CLI that does not exist.
+Use this workflow when an older research repo referenced helper scripts that are not present in the public Cosmos Policy repo.
 
 ```text
-Benchmarking Progress:
-- [ ] Step 1: Confirm whether you are using upstream public commands or repo-local automation
-- [ ] Step 2: Run one deterministic smoke eval and save logs
-- [ ] Step 3: Only then layer on any custom A/B benchmarking wrapper
+Wrapper Reconstruction Progress:
+- [ ] Step 1: Lock down the upstream public command first
+- [ ] Step 2: Record the non-command responsibilities your old wrapper handled
+- [ ] Step 3: Recreate that orchestration in your local repo without inventing new upstream flags
 ```
 
-**Step 1: Pick the right command surface**
+**Step 1: Lock down the public command surface**
 
-- If you are using the public upstream repo, stick to `cosmos_policy.experiments.robot.*.run_*_eval` and do not invent `--enable-cross-attn-kv-cache` or `--output-dir` flags.
-- If you are using a local research repo that adds wrappers or patched configs, document that repo-specific command beside the upstream command.
+- Start from `cosmos_policy.experiments.robot.libero.run_libero_eval` or `cosmos_policy.experiments.robot.robocasa.run_robocasa_eval`.
+- Keep the exact config, checkpoint, dataset stats, and embedding arguments beside the command so the wrapper does not silently hide required state.
 
-**Step 2: Save one deterministic smoke run first**
+**Step 2: Capture what the old wrapper actually did**
 
-- For LIBERO, keep `--num_trials_per_task 1` and a fixed seed such as `195`.
-- For RoboCasa, keep `--num_trials_per_task 2`, fixed `--obj_instance_split`, and a fixed seed.
+- Export EGL and device-selection variables such as `CUDA_VISIBLE_DEVICES`, `MUJOCO_EGL_DEVICE_ID`, `MUJOCO_GL`, and `PYOPENGL_PLATFORM`.
+- Standardize cache roots, Hugging Face cache paths, and log/output directories.
+- Add cluster-specific concerns such as `srun` or `sbatch` options, container enablement, or module loads.
+- Validate simulator prerequisites such as LIBERO dataset config or RoboCasa kitchen assets before launching eval.
 
-**Step 3: Treat A/B benchmarking as repo-specific**
+**Step 3: Recreate orchestration locally**
 
-- The public Cosmos Policy repo does not document a stable single-flag KV cache benchmark path.
-- If you need cache A/B numbers, use checked-in local automation from the target repo or patch the config in a reproducible way and record that diff next to the command.
+- Implement wrappers in your own repo as thin launchers around the public `python -m` entrypoints.
+- Keep wrapper-added behavior explicit in the script body or README: partition selection, cache root, smoke-test defaults, result-copying, and first-outcome snapshots.
+- Document any repo-specific config patch next to the wrapper instead of implying that it is part of upstream Cosmos Policy.
 
 ---
 
@@ -315,7 +315,7 @@ Reference values from official evaluation (tied to specific setup and seeds):
 | LIBERO-Goal | ~80-88% | Goal-conditioned, harder |
 | LIBERO-10 | ~75-85% | 10 diverse long-horizon tasks |
 
-**Benchmark note**: Any KV cache latency claim depends on repo-local implementation details. Record the exact script or config diff you used before comparing numbers across runs.
+**Reproduction note**: Published success rates still depend on checkpoint choice, task suite, seeds, and simulator setup. Record the exact command and environment alongside any reported number.
 
 ---
 
@@ -324,7 +324,7 @@ Reference values from official evaluation (tied to specific setup and seeds):
 - **EGL alignment**: Always set `CUDA_VISIBLE_DEVICES`, `MUJOCO_EGL_DEVICE_ID`, `MUJOCO_GL=egl`, and `PYOPENGL_PLATFORM=egl` together on headless GPU nodes.
 - **Singularity on clusters**: Keep singularity/apptainer enabled on A40 or similar cluster nodes to avoid `GLIBC_2.29` and `transformer_engine` loader failures.
 - **Cache consistency**: Use the same cache directory across setup and eval so Hugging Face and dependency caches are reused.
-- **A/B comparability**: Keep task name, object split, seed, and trial count fixed across cache-on vs cache-off comparisons.
+- **Run comparability**: Keep task name, object split, seed, and trial count fixed across repeated runs.
 
 ---
 

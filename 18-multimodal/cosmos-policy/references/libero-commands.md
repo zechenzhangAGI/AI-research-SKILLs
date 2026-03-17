@@ -1,6 +1,6 @@
 # LIBERO Command Matrix
 
-Command variations for running Cosmos Policy LIBERO evaluation on local machines, interactive GPU shells, or batch systems. All commands use the official public `cosmos_policy.experiments.robot.libero.run_libero_eval` module.
+Command variations for running Cosmos Policy LIBERO evaluation on local machines, interactive GPU shells, or batch systems. All commands use the official public `cosmos_policy.experiments.robot.libero.run_libero_eval` module. If an older research repo mentioned helper wrappers, treat those wrappers as thin launchers around this command plus environment setup and logging.
 
 ## Preferred path: interactive GPU shell
 
@@ -119,9 +119,15 @@ done
 
 Skip `srun` and run the same `uv run ... python -m` commands directly. Set EGL env vars first. Keep singularity enabled on cluster nodes unless there is a verified reason not to.
 
-## Benchmarking note
+## If your old repo had wrappers
 
-The public upstream CLI does not document a stable `--enable-cross-attn-kv-cache` or `--output-dir` benchmark surface. If you need A/B cache numbers, use repo-local automation from the target research repo or record the exact config patch you applied instead of assuming a portable one-flag command.
+Typical local wrapper responsibilities were:
+
+- acquiring the GPU allocation or Slurm shell
+- exporting EGL and cache environment variables
+- pinning a default suite, trial count, and seed for smoke runs
+- routing logs and copied summaries into a stable output directory
+- injecting any repo-local config patch beside the public upstream command
 
 ## Batch fallback
 
