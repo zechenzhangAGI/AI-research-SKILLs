@@ -67,6 +67,8 @@ We enable AI agents to **autonomously conduct AI research** — from literature 
   <em>System diagram of an AI research agent</em>
 </p>
 
+**Complementary external resource:** [Paperzilla](https://github.com/paperzilla-ai/paperzilla-skills) ([ClawHub](https://clawhub.ai/pors/paperzilla)) is useful when AI research touches biology or medicine and you want conversational literature monitoring rather than only one-shot search. It currently supports project-based bioRxiv and medRxiv feeds, can fetch paper markdown for summarization and relevance assessment, and has PubMed support planned.
+
 ## Path Towards AI Research Agent
 
 Modern AI research requires mastering dozens of specialized tools and frameworks.
