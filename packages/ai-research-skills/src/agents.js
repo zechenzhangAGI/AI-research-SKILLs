@@ -81,7 +81,7 @@ export const SUPPORTED_AGENTS = [
     name: 'Hermes Agent',
     configDir: '.hermes',
     skillsDir: 'skills',
-    localConfigDir: '.',
+    localConfigDir: '.hermes',
     localSkillsDir: 'skills',
   },
 ];

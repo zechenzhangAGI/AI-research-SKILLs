@@ -1,7 +1,7 @@
 {
   "name": "@orchestra-research/ai-research-skills",
-  "version": "1.5.2",
-  "description": "Install AI research engineering skills to your coding agents (Claude Code, OpenCode, Cursor, Gemini CLI, and more)",
+  "version": "1.5.3",
+  "description": "Install AI research engineering skills to your coding agents (Claude Code, OpenCode, Cursor, Gemini CLI, Hermes Agent, and more)",
   "main": "src/index.js",
   "bin": {
     "ai-research-skills": "./bin/cli.js"
